@@ -1,3 +1,12 @@
+# JS Theory
+
+### Arrays
+- [Adding Elements](#Adding-Elements)
+- [Removing Elements](#Removing-Elements)
+- [Finding Elements (Primitive Types)](#Finding-Elements)
+- [The ...args Syntax](#The-"...args"-syntax)
+
+
 # Arrays
 
 ## Adding Elements:
