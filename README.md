@@ -4,7 +4,7 @@
 - [Adding Elements](#Adding-Elements)
 - [Removing Elements](#Removing-Elements)
 - [Finding Elements (Primitive Types)](#Finding-Elements)
-- [The ...args Syntax](#The-"...args"-syntax)
+- [The ...args Syntax](#The-args-syntax)
 
 
 # Arrays
@@ -63,7 +63,7 @@ map() and forEach() are both array methods in JavaScript that allow you to itera
 
 In other words, if the elements in the original array are objects or arrays, both the original array and the new sliced array will still reference the same objects or arrays. If you modify the objects or arrays within one of the arrays, the changes will be reflected in both arrays.
 
-## The "...args" syntax
+## The args syntax
 
 The ...args syntax in JavaScript is called the "rest parameter" or "rest syntax." It allows you to represent an indefinite number of arguments as an array within a function parameter. The rest parameter is prefixed with three dots (...) and followed by a parameter name, typically args (although you can use any valid identifier).
 
