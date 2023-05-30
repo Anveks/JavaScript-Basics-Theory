@@ -49,7 +49,7 @@
 
 - slice() creates a new array with a portion of the original array, while splice() modifies the original array.
 - slice() does not change the original array, while splice() changes it.
-- slice() takes the start and end indices as arguments, while splice() takes the start index, delete count, and optional items to insert as arguments.
+- slice() takes the start and end indexes as arguments, while splice() takes the start index, delete count, and optional items to insert as arguments.
 - slice() returns a new array, while splice() returns the removed elements as an array.
 
 ## the difference between map() and forEach():
@@ -351,3 +351,34 @@ APIs can be categorized into different types based on their purpose and how they
 - Library/APIs: These are APIs provided by programming libraries or frameworks that developers can use to access pre-defined functions and services within those libraries. They often provide specific functionality for a particular programming language or domain.
 
 APIs enable developers to build applications that leverage the functionality and data of other systems without having to understand the intricate details of how those systems are implemented. They provide a level of abstraction and standardization that simplifies software development and fosters interoperability between different applications and services.
+
+# DOM
+
+DOM - Documet Object Model - is an HTML representation of a web page. The DOM provides a way to interact with and manipulate the elements, attributes, and text content of a page. The DOM represents the web page as a hierarchical tree structure, where each element, attribute, and text node is represented by a corresponding object. These objects can be accessed and modified using JavaScript, allowing developers to dynamically manipulate the content and appearance of a web page.
+
+## HTML Collection 
+
+An HTMLCollection is a collection-like object that represents a collection of elements in the HTML document. It is similar to an array in some ways but has its own specific properties and methods.
+
+HTMLCollections are typically used to represent groups of HTML elements that share a common characteristic, such as all elements with a specific tag name or class name. For example, when you use the getElementsByTagName() or getElementsByClassName() methods in JavaScript, they return an HTMLCollection containing all the elements that match the specified criteria.
+
+It's important to note that HTMLCollections are not actual arrays, so they do not have all the methods and features of arrays. However, you can convert an HTMLCollection to a regular array using techniques like Array.from() or the spread operator [...collection] if you need to perform array-specific operations on the collection.
+
+Useful methods:
+- document.all - if you want to see all the elements that are present inside an HTML collection o fa given element.
+- document.domain - used to get or set the domain portion of the current document's URL. It allows you to manipulate the domain for security and cross-origin communication purposes.
+- document.URL - shows current URL.
+- document.body.className/classList - in case you want to access all the class elements.
+- document.forms (or any other elem) - gives you access to all the form-elements inside html; document.forms[0] will return the first form; document.forms[0].id/className will return its id/class;
+
+## Event
+
+Events in JavaScript are objects that encapsulate information about the event occurrence, including useful properties that provide details about the event. Here are some commonly used properties of an event object:
+
+- event.target - references the element on which the event was originally triggered.
+- event.currentTarget - references the element that currently has the event handler attached.
+- event.type - epresents the type of the event that occurred, such as "click," "submit," "mouseover," etc. 
+- event.preventDefault() - a method that, when called within an event handler, prevents the default behavior associated with the event.
+- event.stopPropagation() - a method that stops the event from further propagation through the DOM; useful in case of event bubbling and nested elements with event handlers.
+- event.clientX/clientY - properties that provide the coordinates of the mouse pointer when a mouse-related event occurs.
+
