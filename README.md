@@ -11,6 +11,8 @@
 - [Factory Functions and Constructor Functions](#Factory-Functions-and-Constructor-Functions)
 - [Asynchronous Code](#Asynchronous-Code)
 - [API](#API)
+- [DOM](#DOM)
+- [Events](#Events)
 
 
 # Arrays
@@ -371,7 +373,7 @@ Useful methods:
 - document.body.className/classList - in case you want to access all the class elements.
 - document.forms (or any other elem) - gives you access to all the form-elements inside html; document.forms[0] will return the first form; document.forms[0].id/className will return its id/class;
 
-## Event
+## Events
 
 Events in JavaScript are objects that encapsulate information about the event occurrence, including useful properties that provide details about the event. Here are some commonly used properties of an event object:
 
@@ -381,4 +383,25 @@ Events in JavaScript are objects that encapsulate information about the event oc
 - event.preventDefault() - a method that, when called within an event handler, prevents the default behavior associated with the event.
 - event.stopPropagation() - a method that stops the event from further propagation through the DOM; useful in case of event bubbling and nested elements with event handlers.
 - event.clientX/clientY - properties that provide the coordinates of the mouse pointer when a mouse-related event occurs.
+
+
+# Node JS
+
+Node.js is a runtime environment that allows you to run JavaScript on the server-side. It uses the V8 JavaScript engine, originally created for Google Chrome, to execute JavaScript code outside of the browser. Node.js provides an event-driven, non-blocking I/O model, making it efficient and suitable for building scalable network applications.
+
+In Node.js, packages and modules are fundamental concepts for organizing and reusing code.
+
+## Packages
+
+A package in Node.js is a directory that contains a package.json file, which describes the package's metadata and dependencies. Packages can be published and shared through the npm (Node Package Manager) registry, allowing developers to easily install and use them in their projects. Packages can range from small utility libraries to complete frameworks.
+
+## Modules
+
+A module in Node.js is a single file or a group of related files that encapsulate a set of functionalities. Modules allow you to split your code into smaller, manageable units and provide a way to import and export functionality between files. Each module has its own scope, and the exported functions, objects, or values can be accessed by other modules using the require function.
+
+The require function is used to import modules in Node.js. By specifying the module's name or file path, Node.js resolves the dependencies and loads the module into the current file. Modules can expose functionality through the module.exports object or by assigning values directly to exports. Other modules can then use require to access the exported functionality.
+
+## package.json vs package-lock.json
+
+
 
