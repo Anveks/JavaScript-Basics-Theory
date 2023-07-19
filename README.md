@@ -6,13 +6,14 @@
 - [Finding Elements (Primitive Types)](#Finding-Elements)
 - [The ...args Syntax](#The-args-syntax)
 - [Shallow Copy](#Shallow-Copy)
-- [Shallow Copy](#Shallow-Copy)
 - [Data Structures](#Data-Structures)
 - [Factory Functions and Constructor Functions](#Factory-Functions-and-Constructor-Functions)
 - [Asynchronous Code](#Asynchronous-Code)
 - [API](#API)
 - [DOM](#DOM)
 - [Events](#Events)
+- [Node.js](#Node.js)
+- ["This" Keyword]('#This-Keyword')
 
 
 # Arrays
@@ -384,6 +385,195 @@ Events in JavaScript are objects that encapsulate information about the event oc
 - event.stopPropagation() - a method that stops the event from further propagation through the DOM; useful in case of event bubbling and nested elements with event handlers.
 - event.clientX/clientY - properties that provide the coordinates of the mouse pointer when a mouse-related event occurs.
 
+## This Keyword
+
+The 'this' keyword is a special identifier that refers to the context in which a function is executed. The value of 'this' si determined dynamically at runtime based on how the function is called. it allows a function to access the properties and methods of the object that called it, known as 'calling context'.
+
+Possible scenarios:
+
+1. **Global** context: when a function is called in the global scope (outside any object or function), 'this' refers to the global object. In a browser environment, the global object is typically the window object.
+2. **Function** context: when a function is called as a method of an object, 'this' refers to the object hat the method is called on. 
+3. **Constructor** context: when a function is used as a constructor function, 'this' will refer to the newly created instance of the object (or instance of a class, if the constructor function is used inside a class);
+4. **Explicit binding**: in some situations you can explicitly set the values of 'this' using methods like call(), apply() or bind();
+
+## Binding, types of binding, and how it is connected to 'this'
+
+Binding is the process of setting the value of the 'this' keyword. But before you dive deep into theory, make sure you remember what is a **call-site** and a **call-stack**Ж
+
+- call-site is WHERE you call a function;
+- call-stack is is a **data structure that keeps track of the function calls** made during program execution;
+
+There are four main types of binding:
+
+1. Default Binding: 
+
+    function f() {
+        console.log(this.a)
+    }
+
+    var a = 2;
+    f(); // output: 2, use-strict output: undefined
+
+In this case the call-site of the function is window object, so the value of 'this' will be the same.
+
+2. Implicit Binding: this refers to the object that is invoking a function as a method:
+
+    function f() {
+      console.log(this.a)
+      }
+      var obj = {
+          a = 2,
+          f: f, // сохраняем ссылку на нашу функцию в объекте 
+      }
+      obj.f();
+
+Here the output will be the object.
+
+3. Explicit Binding: uses functions or methods like call(), apply(), and bind() to explicitly set the value of 'this' within a function.
+
+- **Hard Binding**: when using the "bind()" method, we create a hard binding - a technique that ensures that a funxction will always have a specific 'this' context, regardless of how it is called. 
+
+    const person = {
+      name: 'John',
+    };
+
+    function greet() {
+      console.log('Hello, my name is ${this.name}');
+    }
+
+    const boundGreet = greet.bind(person);
+    boundGreet(); // Output: "Hello, my name is John"
+
+    // Even if 'greet' is called with a different context, it will still use the bound context:
+    const anotherObject = { name: 'Alice' };
+    greet.call(anotherObject); // Output: "Hello, my name is John"
+  
+- **Arrow Functions**: in a way arrow functions also represent 'hard binding' because they capture the 'this' value from their surrounding context. Meaning - the value of 'this' will always be the same value the arrow function had whe it was defined.
+
+# ViewState Vs SessionState
+
+1. **View State**, also known as the client-side state, refers to the data that is stored and managed within the clien-side of a web application.
+- typically managed by JavaScript frameworks or libraries like Ract, Vue, Angular;
+- is suitable for managing UI-related data, form inputs or temporary information that doesn't need to persist across different page loads or sessions. 
+
+2. **Storage State** refers to the data stored and managed on the server-side.
+- associated with a user's session and can be maintained across multiple requests from the same user during a session;
+- unlike local state, session state persists across page loads and navigation, allowing data to be carried over between different parts of the application;
+- often used to store user-specific information such as authentication status, user preferences, or shopping cart contents;
+- user login details, user settings, and data stored in a shopping cart during an online shopping session;
+
+# Cookies
+
+Cookies are small pieces of data that websites store on a user's web browser. They are used to remember information about the user's interactions with the website, such as login credentials, shopping cart items, user preferences, and other data that helps enhance the user experience.
+
+When a user visits a website, the website's server sends a response to the user's browser, which includes one or more cookies. The browser then stores these cookies locally on the user's device. The next time the user visits the same website, the browser sends the stored cookies back to the website's server along with the request, allowing the server to recognize the user and remember their previous interactions.
+
+Cookies can be classified into two main types:
+
+1. Session Cookies: These cookies are temporary and are deleted when the user closes their web browser. They are typically used for session management and authentication purposes.
+
+2. Persistent Cookies: These cookies have an expiration date set by the website and remain on the user's device even after the browser is closed. They are used for long-term tracking and personalization.
+
+## How to create a cookie?
+
+To create a cookie in JavaScript, you can use the **document.cookie** property to set the cookie value. Here's a basic example of how to create a cookie:
+
+    function setCookie(name, value, daysToExpire) {
+      const date = new Date();
+      date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+      const expires = "expires=" + date.toUTCString();
+      document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    // Usage example:
+    setCookie("username", "JohnDoe", 30);
+
+setCookie takes three parameters; then it calculates the expiration date of the cookie; after this it sets the cookie using the document.cookie property: a new cookie is created with additioal option like expiration date and a path.
+
+The path attribute in a cookie is used to specify the URL path for which the cookie is valid. If it is not defined, the default path of the cookie will be the current path. The purpose is to control the scope of the cookie and limit its accessibility to specific parts of your website. 
+
+NB: Cookies are client-side storage mechanism. They are not stored on the backend!
+
+# Scopes of a variable in JavaScript
+
+In JS variables have different scopes, which determine where the variable can be accessed or referenced within the code. Main types are:
+
+- **Global Scope**: variables declared outside of any function or block; can be accessed throughout the whole code; are attached to global objects (window in browser, global in node.js);
+- **Function Scope**: variables declared inside a function; can be accessed only within that function;
+- **Block Scope (ES6)**: variables declared inside a block (inside an if-else block/loop/etc); can only be accessible within that block/loop;
+- **Lexical Scope (closure)**: if a function is declared inside another function, it has access to it's parent scope. 
+
+Closure example:
+
+    function outerFunction() {
+      var outerVar = "I am an outer variable";
+
+      function innerFunction() {
+        console.log(outerVar); // Accessing the outerVar from the parent scope
+      }
+
+      return innerFunction;
+    }
+
+    var closureFunc = outerFunction();
+    closureFunc(); // "I am an outer variable" is logged
+
+# Function Declaration vs Function Expression 
+
+The main difference in how they are defined and where are they placed in a call-stack:
+
+1. Function Declaration:
+- start with the 'function' keyword;
+- placed at the top of call-stack during their execution (allows to call a function before its actual declaration in the code);
+
+2. Function Expression:
+- is assigned to a variable or a constant;
+- can be anonymous - without a name;
+- cannot be used before they are declared;
+
+# Arrow Functions 
+
+Arrow functions are the newest syntax for writing JS functions, introduced in ES6:
+
+    const functionName = (param1, param2, ...) => {
+      // Function body
+      // Return statement (if necessary)
+    };
+
+Key features are:
+- shorter syntax: if it consists of one expression, the return statement can be omitted;
+- implicit return: even if there is no return statement, the function will still return a value;
+- single parameter: if there is only one parameter, parenthesis can be omitted;
+- lexical 'this': 'this' inside an arrow function refers only to the function itself and cannot be changed throughout the code;
+
+## Hoisting in JS
+
+Hoisting is a JavaScript behavior where variable and function **declarations are moved to the top of their containing scope** during the execution phase, before the actual code execution.
+
+- Hoisting variable declarations:
+
+    console.log(x); // Output: undefined
+    var x = 5;
+    console.log(x); // Output: 5
+
+In the first console.log, x is hoisted, so it exists, but its value is undefined because it has not been assigned a value yet. In the second console.log, x has been assigned the value 5.
+
+- Hoisting and *function declarations*: 
+
+    sayHello(); // Output: "Hello, world!"
+
+    function sayHello() {
+      console.log("Hello, world!");
+    }
+
+In this example, the sayHello function declaration is hoisted to the top of the scope, so we can call it before its actual definition.
+
+- Hoisting and *function expressions*:
+
+    sayHi(); // Error: sayHi is not a function
+    var sayHi = function() {
+      console.log("Hi!");
+    };
 
 # Node JS
 
@@ -403,5 +593,9 @@ The require function is used to import modules in Node.js. By specifying the mod
 
 ## package.json vs package-lock.json
 
+Both pacakge.json and package-lock.json are used to manage dependencies and packages. However, they serve different purposes:
 
+- **package.json** is the heart of a Node.js project. It is a JSON file that contains various metadata about the project, including the project's name, version, description, entry point, scripts, dependencies, and more. It is manually maintained by the developer or generated using tools like npm init. The dependencies section lists the packages that the project depends on, along with their versions.
+
+- **package-lock.json** is automatically generated by npm when installing or updating packages. It is used to lock the versions of the installed dependencies to ensure that the project uses the same versions consistently across different environments. It helps in ensuring that every developer and every server running the project will use the exact same versions of the dependencies, avoiding any potential discrepancies or conflicts.
 
