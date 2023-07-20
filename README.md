@@ -6,15 +6,21 @@
 - [Finding Elements (Primitive Types)](#Finding-Elements)
 - [The ...args Syntax](#The-args-syntax)
 - [Shallow Copy](#Shallow-Copy)
+- [Objects](#Objects)
+- [Object Prototypes](#Object-Prototypes)
 - [Data Structures](#Data-Structures)
 - [Factory Functions and Constructor Functions](#Factory-Functions-and-Constructor-Functions)
 - [Asynchronous Code](#Asynchronous-Code)
 - [API](#API)
 - [DOM](#DOM)
 - [Events](#Events)
-- [Node.js](#Node.js)
+- [Cookies](#Cookies)
+- [Scopes](#Scopes-of-a-variable-in-JavaScript)
+- [Functions](#Function-Declaration-vs-Function-Expression)
 - ["This" Keyword]('#This-Keyword')
-
+- [Concept of Hoisting](#Hoisting-in-JS)
+- [Imports and Exports](#Imports-and-Exports-in-JavaScript)
+- [Node.js](#Node.js)
 
 # Arrays
 
@@ -67,7 +73,7 @@ map() and forEach() are both array methods in JavaScript that allow you to itera
 
 ## Shallow Copy
 
- A shallow copy means that the new array contains references to the same objects as the original array, rather than creating new copies of the objects themselves.
+A shallow copy means that the new array contains references to the same objects as the original array, rather than creating new copies of the objects themselves.
 
 In other words, if the elements in the original array are objects or arrays, both the original array and the new sliced array will still reference the same objects or arrays. If you modify the objects or arrays within one of the arrays, the changes will be reflected in both arrays.
 
@@ -78,6 +84,61 @@ To copy an object in JavaScript, you have three options:
 3. Use the JSON.stringify() and JSON.parse() methods - deep
 
 BONUS: it is possible to copy an existing array by creating a new one with the same elements by using map() method as well (along with Array.from if needed);
+
+# Objects
+
+Objects are a fundamental datatype used to store and organize data in key-value pairs. They are similar to dictionaries in other languages (dictionaries in Python, for example).
+
+In JavaScript, there are **four ways** to create an object — using object literals, constructor functions, ES6 classes and object.create method, which is very useful when we need to create an object using an existing object as a prototype.
+
+1. *Object Literal Syntax*: the most common way, involves enclosing the key-value pairs in curly braces '{}';
+2. *Object Constructor*: 
+
+    const dog = new Object();
+    dog.color = 'white';
+    dog.name = 'Jackie';
+    dog.age = 3;
+
+- Factory Functions + Constructor Functions: functions that return objects; similar to constructor functions;
+```
+    function createPerson(firstName, lastName, age, email, isStudent) {
+    return {
+      firstName,
+      lastName,
+      age,
+      email,
+      isStudent,
+      greet: function () {
+        return `Hello, my name is ${this.firstName} ${this.lastName}.`;
+      },
+    };
+  }
+```
+3. *Object.create() method*: allows us to use an existing object literal as the prototype of a new object we create. 
+
+    const person = {
+      firstName: 'Mary',
+      lastnameL: 'Jane',
+    }
+    const person2 = Object.create(person);
+    person2.firstName = 'John',
+    person2.lastName = 'Doe'
+
+4. *Classes*: ES6 introduced a class keyword that allows us to create classes in JS; in a way, classes are templates that can be used to create instances of objects with 'new' keyword;
+
+NB: More examples here - https://medium.com/@mandeepkaur1/creating-objects-in-javascript-a896e6cfa6eb#:~:text=In%20JavaScript%2C%20there%20are%20four,existing%20object%20as%20a%20prototype.
+
+## Object Prototypes
+
+Each object has a hidden property called "[[Prototype]]", which is a reference to another object called the 'prototype'. The concept of Prototypes is fundamental in JavaScript and it plays an important role in object **inheritance**. 
+
+What happens behind the scenes when we try to access a property of an object? It triggers the prototype chain. JS first looks for the desired property on the obejct itself; if such property is not found, it goes to the object prototype; if the result is negative again, it continues the search up to the top-level prototype called 'Object.prototype'.
+
+Prototype chain - a chain ob objects, made of one object prototype.
+
+Object.prototype is the top-level prototype in the prototype-chain. It is the prototype of all objects in JS and provides default properties and methods that are inherited by all objects. 
+
+Object.getPrototypeOf() and Object.setPrototypeOf() are the common methods to interact with the prototype chain, that replaced the _proto_ property, that, although, still exists withing all JS objects (yet it is deprecated).
 
 ## The args syntax
 
@@ -546,6 +607,41 @@ Key features are:
 - single parameter: if there is only one parameter, parenthesis can be omitted;
 - lexical 'this': 'this' inside an arrow function refers only to the function itself and cannot be changed throughout the code;
 
+# Higher-order Functions (HOFs)
+
+In short: a function that *can take other function/s as arguments*, return functions, or do both. Therefore we have two types of HOFs:
+
+- HOFs that take functions as arguments: like Array.prototype.map() or filter() etc.
+- HOFs that return functions: 
+
+    function calculator(a){
+      return function(b){
+        return a * b;
+      }
+    }
+  
+    const double = calculator(2);
+    console.log(double(5)); // 10 
+
+Another example for HOF that return a function:
+
+    function add2(num) {
+      return num + 2;
+    }
+
+    function multiplyBy3(num) {
+      return num * 3;
+    }
+
+    function compose(func1, func2) {
+      return function (x) {
+        return func1(func2(x));
+      };
+    }
+
+    const addThenMultiply = compose(multiplyBy3, add2);
+    console.log(addThenMultiply(5)); // (5 + 2) * 3 = 21
+
 ## Hoisting in JS
 
 Hoisting is a JavaScript behavior where variable and function **declarations are moved to the top of their containing scope** during the execution phase, before the actual code execution.
@@ -574,6 +670,40 @@ In this example, the sayHello function declaration is hoisted to the top of the 
     var sayHi = function() {
       console.log("Hi!");
     };
+
+In case of function expressions - the variable is hoisted, but it's value, which is a function, is not. Therefore when we try to call the function before assignment, we get an error. 
+
+# Imports and Exports in JavaScript
+
+Imports and exports are used for module management, thus allowing you to split the code into separate files and selectively use variables, functions and classes. This feature was introduced in ES6 in 2015. 
+
+1. **Exporting** from a module: to make a variable available for use in other modules, you use the 'export' keyword followed by the item you want to export. There two ways of exporting items from a module: 
+
+- **Named Export**: when the export keyword is put right before the variable you want to export; used to export *multiple* items from a module;
+
+    export const x = 10;
+
+- **Default Export**: by addding the 'default' keyword to the export; there can only be one default export per module, and it is imported without using the curly braces;
+
+    const x = 10;
+    export default x;
+
+2. **Importing** to a module: in order to use the exported items from another module, you use the 'import' keyword followed by the item you want to import; you also specify the path of the module where the item is exported. Again, there are two types:
+
+- **Named Import**: in case you want to import selected elements from a module; curly braces needed;
+
+    import { x } from './module.js'
+
+- **Default Import**: importing without the curly braces:
+
+    import customX from './custom-module.js'
+
+- **Import Everything**: it is possible to import all the exported items from a module using "* as" syntax:
+
+    import * as exampleModule from './example-module.js'
+    console.log(exampleModule.x);
+
+NB: a nice article explaining the difference between named and default exports: https://medium.com/@etherealm/named-export-vs-default-export-in-es6-affb483a0910#:~:text=Named%20exports%20are%20useful%20to,an%20object%20or%20anything%20else.
 
 # Node JS
 
