@@ -8,7 +8,9 @@
 - [Shallow Copy](#Shallow-Copy)
 - [Objects](#Objects)
 - [Object Prototypes](#Object-Prototypes)
-- [Data Structures](#Data-Structures)
+- [Prototype design pattern](#prototype-design-pattern)
+- [Classes](#Classes)
+- [Data Structures](#Data-Structures:-Set-&-Map)
 - [Factory Functions and Constructor Functions](#Factory-Functions-and-Constructor-Functions)
 - [Asynchronous Code](#Asynchronous-Code)
 - [API](#API)
@@ -20,6 +22,9 @@
 - ["This" Keyword]('#This-Keyword')
 - [Concept of Hoisting](#Hoisting-in-JS)
 - [Imports and Exports](#Imports-and-Exports-in-JavaScript)
+
+- [Memoization](#Memoization)
+
 - [Node.js](#Node.js)
 
 # Arrays
@@ -140,6 +145,53 @@ Object.prototype is the top-level prototype in the prototype-chain. It is the pr
 
 Object.getPrototypeOf() and Object.setPrototypeOf() are the common methods to interact with the prototype chain, that replaced the _proto_ property, that, although, still exists withing all JS objects (yet it is deprecated).
 
+# Prototype Design Pattern
+
+The prototype design pattern is a creational design pattern in JavaScript that allows you to create objects based on a template or prototype object. **Instead of creating objects from a class or constructor function, you can clone existing objects, known as prototypes**, and modify them as needed to create new instances. This pattern promotes code reusability and can improve performance, as you create new objects by cloning existing ones rather than instantiating new objects from scratch.
+
+Is implemented using the prototype chain, since each object in JS has an internal property called 'Prototype' (placed in double square brackets). 
+
+The prototype design pattern is especially useful when you have objects with similar behavior and you want to avoid duplicating code for each instance. It allows you to centralize common functionalities in the prototype object and keep instance-specific data separate in each instance.
+
+More: https://blog.bitsrc.io/the-prototype-design-pattern-in-typescript-19cff98a1639
+
+# Classes
+
+Classes are a syntactical abstraction over the constructor functions and a prototype-based inheritance. First introduced in 2015. Provide a more structured ways to define objects and work with inheritance. In OOP, classes typically represent the three fundamental concepts:
+
+1. Inheritance
+- is the mechanism by which a class can inherit properties and methods from another class, known as the base or parent class. The class that inherits these properties and methods is called the derived or child class. This allows you to create a hierarchy of classes, where child classes can extend the behavior of their parent classes, reusing code and promoting code reusability.
+
+2. Encapsulation
+-   refers to the bundling of data (attributes) and methods (functions) that operate on that data within a single unit, often called a class. It allows you to hide the internal details of the class and expose only the necessary functionalities to the outside world. This helps in creating more maintainable and secure code by controlling access to the internal state of objects.
+
+3. Polymorphism 
+- allows objects of different classes to be treated as objects of a common superclass. This means that objects can take on multiple forms or types, and they can be used interchangeably, as long as they are related through inheritance. Polymorphism enables you to write code that can work with objects of different classes in a unified manner, leading to more flexible and reusable code.
+
+To create a class you use the 'class' keyword, followed by the class name (in PascalCase) and the class body. Inside the class body you can define its properties and methods just like in a regular JS object, but with a more organized syntax. 
+
+To create instances of class you use the 'new' keyword. 
+
+With classes, you can also use inheritance to create subclasses (also known as derived classes) that inherit properties and methods from a parent class. To achieve this, you use the extends keyword:
+```
+    class Student extends Person {
+  constructor(name, age, major) {
+    super(name, age); // Call the parent class constructor using super()
+    this.major = major;
+  }
+
+  introduce() {
+    console.log(`Hello, I am ${this.name}, a ${this.age}-year-old student majoring in ${this.major}.`);
+  }
+}
+
+const student1 = new Student("Eve", 21, "Computer Science");
+student1.greet(); // Output: "Hello, my name is Eve and I am 21 years old."
+student1.introduce(); // Output: "Hello, I am Eve, a 21-year-old student majoring in Computer Science
+
+```
+    
+
 ## The args syntax
 
 The ...args syntax in JavaScript is called the "rest parameter" or "rest syntax." It allows you to represent an indefinite number of arguments as an array within a function parameter. The rest parameter is prefixed with three dots (...) and followed by a parameter name, typically args (although you can use any valid identifier).
@@ -161,7 +213,7 @@ console.log(sum(1, 2, 3, 4)); // Output: 10
 
 ```
 
-# Data Structures
+# Data Structures: Set & Map
 
 Data structures are ways of organizing and storing data to perform operations efficiently. They define the behavior and operations that can be performed on the stored data. 
 
@@ -255,7 +307,7 @@ person2.greet(); // Output: Hello, my name is Alice and I'm 30 years old.
 
 ### Constructor Functions:
 
-1. A constructor function is a special function that is used with the new keyword to create objects.
+1. Constructor functions are used to create and initialize objects in JavaScript. They act as "blueprints" for creating multiple instances of objects with similar properties and behaviors. 
 2. It is called a constructor function because it constructs (initializes) the object.
 3. The constructor function is defined using the function keyword and is typically named with PascalCase convention.
 4. It uses the this keyword to refer to the newly created object.
@@ -704,6 +756,115 @@ Imports and exports are used for module management, thus allowing you to split t
     console.log(exampleModule.x);
 
 NB: a nice article explaining the difference between named and default exports: https://medium.com/@etherealm/named-export-vs-default-export-in-es6-affb483a0910#:~:text=Named%20exports%20are%20useful%20to,an%20object%20or%20anything%20else.
+
+# Type of Errors 
+
+There are several types of errors that can occur in JavaScript, yet the most common errors include:
+
+1. Syntax Errors: occur when the syntax rules get violated: missing brackets, parenthesis, etc;
+2. Reference Errors: when trying to access a value that does not exist or is out of scope;
+3. Type Errors: when a value is not of an expected type;
+4. Range Errors: when value is not within acceptable range, for example when index exceeds the number of elements in an array;
+5. Eval Errors: when there is an error with eval() function - a function that evaluates JS code in a string;
+6. URI Errors: in case there are issues with functions that deal with Uniform Resource Identifiers (URIs);
+7. Internal Errors: when the engine encounters an internal problem or limitation;
+
+With all these and many other possible errors in JS it is generally recommended to use try-catch blocks, so that the code could catch and process exceptions and prevent the programm from terminating unexpectedly. 
+
+# Memoization
+
+Memoization is an optimization technique used to improve the perfomance of functions, especially the recursive ones. It involves saving (caching) the result of a function call and re-using it when the same input occur again, rather than recalculating the result. 
+
+In JavaScript the most common way to implement memoization is to use a data structure like an object or a Map to store the results. 
+
+For example, an algorithm with the fibonacci numbers:
+
+    function fibonacci(n, memo = {}) {
+      if (n in memo) {
+        return memo[n]; // Return the cached result if available
+      }
+
+      if (n <= 2) {
+        return 1; // Base case for the Fibonacci sequence
+      }
+
+      memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo); // Compute and cache the result
+      return memo[n];
+    }
+
+    console.log(fibonacci(6)); // Output: 8
+
+Another example with a function that simply adds 10 to its argument:
+
+```
+    // without memoization it would run anew each time:
+    const add = (n) => (n + 10);
+    add(9);
+
+    // with memoization:
+    const memoizedAdd = () => {
+      let cache = {};
+      return (n) => {
+        if (n in cache) {
+          console.log('Fetching from cache');
+          return cache[n];
+        }
+        else {
+          console.log('Calculating result');
+          let result = n + 10;
+          cache[n] = result;
+          return result;
+        }
+      }
+    }
+    
+    const newAdd = memoizedAdd();
+    console.log(newAdd(9)); // calculated
+    console.log(newAdd(9)); // taken from cache
+```
+Good to know: https://habr.com/ru/companies/ruvds/articles/332384/
+
+# BOM: Browser Object Model
+
+Article: https://www.javascripttutorial.net/javascript-bom/
+
+It is a set of JavaScript APIs provided by web browsers. It allows the JS code to interact with and manipulate the browser window and its components. The BOM provides access to various browser-related objects such as the window object, navigator object, history object and screen object. 
+
+The key objects are:
+
+1. Window: is the global object of JS inside the web browser;
+- alert(): display an alert dialog;
+- confirm(): display a modal dialog with a question;
+- prompt(): prompt the user to input some text;
+- setTimeout(): set a timer;
+- setInterval(): execute smth repeatedly;
+
+2. Location: manipulate the location of a documebnt via the location object; represents the current URL of the page and allows navigation to different URLs.
+
+3. Navigator: provides information about the browser and its capabilities, such as the browser name, version, user agent string, and whether cookies are enabled.
+
+4. Screen: provides information about the user's screen, such as screen width, height, color depth, and pixel density.
+
+5. History: allows manipulation of the browser's history, such as adding or modifying history entries, and navigating back and forward through the user's browsing history.
+
+6. Document: NOT a part of BOM but closely related to it; the document represents the HTML displayed in the browser window. Allows manipulations with DOM to modify the content and the structure of the webpage. 
+
+# Client-Side vs Server-Side
+
+Client-side and server-side are **two distinct environments where JavaScript code can be executed**.
+
+1. Client-side JavaScript:
+- runs on the user's *browser*.
+- provides interactivity to web pages.
+- the code itself is embedded directly into HTML files or included through external JS files. 
+- has access to the Browser Object Model (BOM) and the Document Object Model (DOM) for interacting with the browser and manipulating web page content.
+- client-side JavaScript frameworks and libraries include React, Angular, and Vue.js.
+
+2. Server-side JavaScript:
+- runs on the *server*, typically in a Node.js environment.
+- used for handling backend logic and server-side processing.
+- use cases include handling API requests, processing form submissions, interacting with databases, and performing server-side rendering for applications.
+- server-side frameworks for JavaScript include Express.js, Koa.js, and Nest.js.
 
 # Node JS
 
