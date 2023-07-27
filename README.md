@@ -1,6 +1,6 @@
 # JS Theory
 
-### Arrays
+- [Data Types][#Data-Types-+-bigint]
 - [Adding Elements](#Adding-Elements)
 - [Removing Elements](#Removing-Elements)
 - [Finding Elements (Primitive Types)](#Finding-Elements)
@@ -25,7 +25,33 @@
 
 - [Memoization](#Memoization)
 
-- [Node.js](#Node.js)
+- [Node.js](#Node-JS)
+
+# Data Types + bigint
+
+Based on: https://www.javascripttutorial.net/javascript-data-types/
+
+Data types in JavaScript can be divided into two groups: primitive types and complex (reference) types:
+
+1. Primitives:
+- string - a sequence of characters
+- number - represents an integer or a float
+- boolean - a logical value
+- undefined - a variable that has been declared but hasnt been assigned any value
+- null - represents an intentional abscence of any value
+- symbol - unique and immutable value used as an object key
+
+2. Reference:
+- object - collection of key-value pairs 
+- array - an ordered and indexed collection of elements
+- function - reusable block of code that can be invoked with arguments
+
+Besides these two major datatype groups, there is also a 'special' one that includes:
+- bigint - integers with arbitrary precision, used when numbers exceed the safe range for the 'number' type
+- NaN - a value that is not a number but results from invalid mathematical operations
+- infinity - a mathematical concept of positive infinity (can be negative as well)
+
+Native JavaScript is a dynamically-typed language, which means you do not have to specify the datatype of a variable explicitly. It is determined automatically at runtime. 
 
 # Arrays
 
@@ -132,6 +158,22 @@ In JavaScript, there are **four ways** to create an object — using object lite
 4. *Classes*: ES6 introduced a class keyword that allows us to create classes in JS; in a way, classes are templates that can be used to create instances of objects with 'new' keyword;
 
 NB: More examples here - https://medium.com/@mandeepkaur1/creating-objects-in-javascript-a896e6cfa6eb#:~:text=In%20JavaScript%2C%20there%20are%20four,existing%20object%20as%20a%20prototype.
+
+## Object Destructuring 
+
+Object destructuring is a technique that allows you to extract properties from objects in JS and bind them to the variables. The syntax for object destructuring uses the {} curly braces, and the variable names should match the property names in the object. 
+
+Example: 
+
+    const person = {
+      firstName: 'John',
+      lastName: 'Doe'
+      age: 35
+    }
+
+    const {firstN: firstName, lastN: lastName, personAge: age} = person;
+    console.log(firstN); // returns 'John'
+    ...
 
 ## Object Prototypes
 
@@ -331,6 +373,40 @@ person2.greet(); // Output: Hello, my name is Alice and I'm 30 years old.
 ```
 
 Both factory functions and constructor functions can be used to create objects in JavaScript. The choice between them depends on the specific requirements of your project and your coding style preferences. Factory functions offer more flexibility and control over the object creation process, while constructor functions provide a more traditional and class-like syntax.
+
+# Generator Functions 
+
+Generator functions are a special type of function in JS that allow you to define an iterative algorithm by using the 'yield' keyword. When a generator function gets called, it does not execute the code immediately like regular functions - it returns a special type of iterator called a generator object. 
+
+The syntax is pretty much the same as a regular function but with an asterisk added after the 'function' keyword:
+
+    function* myGeneratorFunction() {
+      // function body here
+    }
+
+Inside a generator function you can use a 'yield' keyword to pause the function's execution and yield a value to the caller. Each time the function encounters the 'yield' keyword it returns the value specified by the 'yield' and the function's state is saved so that it can be resumed later. 
+
+Example:
+
+    function* countToThree(){
+      yield 1;
+      yield 2;
+      yield 3;
+    }
+
+    const generatorObj = countToThree()
+
+    generatorObj.next() // returns {vaue: 1, done: false}
+
+The Generator object returned by the function is an iterator. An iterator is an object that has a next() method available, which is used for iterating through a sequence of values. The next() method returns an object with value and done properties. value represent the returned value, and done indicates whether the iterator has run through all its values or not.
+
+You can close a Generator by using the .return() method:
+
+    generatorObj.next() // {value: 1, done: false}
+    generatorObj.return('Function has ended!') // {value: 'Function has ended!', done: true}
+    generatorObj.next() // {value: undefined, done: true}
+
+NB: an interesting article on the subject: https://www.digitalocean.com/community/tutorials/understanding-generators-in-javascript
 
 # Asynchronous Code
 

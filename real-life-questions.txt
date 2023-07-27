@@ -14,12 +14,11 @@ Use of a constructor function?
 What is BOM?
 Difference between client-side and server-side?
 What is the prototype design pattern?
-
 Classes in JavaScript?
 What are generator functions?
 What is WeakSet?
-What is the use of callbacks?
 What is a WeakMap?
+What is the use of callbacks?
 What is Object Destructuring?
 
 ---------------------------------------------------
@@ -37,7 +36,7 @@ What is Object Destructuring?
 
 11. What is the ‘this’ keyword in JavaScript?
 12. What is the difference between Local view and SessionState?
-	◦	What this is cookies?
+	◦	What are cookies?
 	◦	What are the scopes of a variable in JavaScript?
 	◦	What is the difference between Function declaration and Function expression?
 	◦	How would you create a cookie?
