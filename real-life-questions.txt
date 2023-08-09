@@ -1,5 +1,6 @@
+Explain the event loop in JavaScript? What are Heaps, Call Stacks and Queues? 
+What is the use of callbacks?
 What is the ‘this’ keyword in JavaScript?
-What is the difference between View state and SessionState? 
 What are cookies?
 What are the scopes of a variable in JavaScript?
 What is the difference between Function declaration and Function expression?
@@ -9,7 +10,7 @@ What are Imports and Exports in JavaScript?
 Higher Order Functions?
 What are object prototypes?
 Types of errors in javascript?
-What is memorization?
+What is memoization?
 Use of a constructor function?
 What is BOM?
 Difference between client-side and server-side?
@@ -18,8 +19,8 @@ Classes in JavaScript?
 What are generator functions?
 What is WeakSet?
 What is a WeakMap?
-What is the use of callbacks?
 What is Object Destructuring?
+What is the difference between View state and SessionState? 
 
 ---------------------------------------------------
 

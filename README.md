@@ -1,6 +1,7 @@
 # JS Theory
 
-- [Data Types][#Data-Types-+-bigint]
+- [Event Loop][#Event-Loop]
+- [Data Types][#Data-Types]
 - [Adding Elements](#Adding-Elements)
 - [Removing Elements](#Removing-Elements)
 - [Finding Elements (Primitive Types)](#Finding-Elements)
@@ -27,7 +28,21 @@
 
 - [Node.js](#Node-JS)
 
-# Data Types + bigint
+# Event Loop: Stacks and Queues
+
+A lecture from Philipp Roberts, the creator of Loupe: https://www.youtube.com/watch?v=8aGhZQkoFbQ
+
+The event loop is a **constantly running process** that monitors both the callback queue and the call stack.
+
+JavaScript is a single-threaded language, it has a single call stack, which means it can do one thing at a time. Therefore the 'slow' code, or blocking, is actually a problem, because we run our js code inside the browsers. If the call stack gets blocked, everything inside the browser stops. It freezes untill it has completed all the processes inside the stack.
+
+The solution to this problem are **callbacks**. Callback functions run concurrently to the call stack without blocking it. 
+
+Terminology:
+- Call Stack - a data structure that keeps track of the functions being called and executed. It uses the 'Last In First Out' (LIFO) principle to store and manage function invocation. 
+- Task (JavaScript) Queue - is one of the linear data structures similar to stack; the difference is that it works based on First In First Out (FIFO) principle.
+
+# Data Types
 
 Based on: https://www.javascripttutorial.net/javascript-data-types/
 
