@@ -32,6 +32,10 @@
 
 A lecture from Philipp Roberts, the creator of Loupe: https://www.youtube.com/watch?v=8aGhZQkoFbQ
 
+An article in Russian: https://habr.com/ru/articles/461401/
+
+JavaScript is a single-threaded non-blocking asynchronous concurrent language.
+
 The event loop is a **constantly running process** that monitors both the callback queue and the call stack.
 
 JavaScript is a single-threaded language, it has a single call stack, which means it can do one thing at a time. Therefore the 'slow' code, or blocking, is actually a problem, because we run our js code inside the browsers. If the call stack gets blocked, everything inside the browser stops. It freezes untill it has completed all the processes inside the stack.
