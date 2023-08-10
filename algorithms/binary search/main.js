@@ -27,5 +27,8 @@ const search = (arr, target) => {
 
 console.log(search(sortedArr, 3));
 
+// another approach:
+// https://www.youtube.com/watch?v=7lGiPItOVCM
+
 
 
