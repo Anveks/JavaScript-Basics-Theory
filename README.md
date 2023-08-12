@@ -34,13 +34,17 @@ A lecture from Philipp Roberts, the creator of Loupe: https://www.youtube.com/wa
 
 An article in Russian: https://habr.com/ru/articles/461401/
 
-JavaScript is a single-threaded non-blocking asynchronous concurrent language.
+JavaScript is a single-threaded non-blocking asynchronous concurrent language. 
 
-The event loop is a **constantly running process** that monitors both the callback queue and the call stack.
-
-JavaScript is a single-threaded language, it has a single call stack, which means it can do one thing at a time. Therefore the 'slow' code, or blocking, is actually a problem, because we run our js code inside the browsers. If the call stack gets blocked, everything inside the browser stops. It freezes untill it has completed all the processes inside the stack.
+it has a single call stack, which means it can do one thing at a time. Therefore the 'slow' code, or blocking, is actually a problem, because we run our js code inside the browsers. If the call stack gets blocked, everything inside the browser stops. It freezes untill it has completed all the processes inside the stack.
 
 The solution to this problem are **callbacks**. Callback functions run concurrently to the call stack without blocking it. 
+
+The event loop is a **constantly running process** that monitors both the callback queue and the call stack and send the new tasks to it. Yet in order to understand it fully, we should know the types of tasks JS handles (in hierarchical order):
+- Synchronous Tasks: console.logs, events, etc; executed one by one
+- Asynchronous Tasks: **microtasks** - promises and observables, have high priority, **macrotasks** - setTimeout, setInterval, etc. 
+
+So basically all the tasks end up inside the event loop where they are processed depending on their sync/async behaviour and priority. First the event loop sends the sync tasks to the callstack, then it checks if there is anything inside the callback queue. If there is, it sends the callbacks to the callstack, once it has completed handling all the sync tasks. 
 
 Terminology:
 - Call Stack - a data structure that keeps track of the functions being called and executed. It uses the 'Last In First Out' (LIFO) principle to store and manage function invocation. 
@@ -217,6 +221,8 @@ The prototype design pattern is especially useful when you have objects with sim
 More: https://blog.bitsrc.io/the-prototype-design-pattern-in-typescript-19cff98a1639
 
 # Classes
+
+NB: https://habr.com/ru/articles/518386/
 
 Classes are a syntactical abstraction over the constructor functions and a prototype-based inheritance. First introduced in 2015. Provide a more structured ways to define objects and work with inheritance. In OOP, classes typically represent the three fundamental concepts:
 
