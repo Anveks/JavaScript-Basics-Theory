@@ -1,0 +1,3 @@
+Find all pairs in an array of integers whose sum is equal to a given number.
+
+To simplify, the input array will not have duplicates. However, there will be negative and positive numbers. For the solution, like before, I will use a lookup hash. As you can see, knowing how to use a lookup hash, which has constant lookup time, can be very useful.
