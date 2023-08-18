@@ -6,7 +6,7 @@
 - [Removing Elements](#Removing-Elements)
 - [Finding Elements (Primitive Types)](#Finding-Elements)
 - [The ...args Syntax](#The-args-syntax)
-- [Shallow Copy](#Shallow-Copy)
+- [Shallow Copy and Deep Copy](#Shallow-Copy-and-Deep-Copy)
 - [Objects](#Objects)
 - [Object Prototypes](#Object-Prototypes)
 - [Prototype design pattern](#prototype-design-pattern)
@@ -125,19 +125,32 @@ map() and forEach() are both array methods in JavaScript that allow you to itera
 
 - Use case: map() is used when you want to modify each element in the array and create a new array with the modified values. forEach() is used when you want to perform a certain operation on each element of the array, but don't need to create a new array.
 
-## Shallow Copy
+## Shallow Copy and Deep Copy
 
-A shallow copy means that the new array contains references to the same objects as the original array, rather than creating new copies of the objects themselves.
+A **shallow copy** means that the new array contains references to the same objects as the original array, rather than creating new copies of the objects themselves.
 
 In other words, if the elements in the original array are objects or arrays, both the original array and the new sliced array will still reference the same objects or arrays. If you modify the objects or arrays within one of the arrays, the changes will be reflected in both arrays.
 
-To copy an object in JavaScript, you have three options:
+Ways to create a shallow copy in JavaScript:
 
-1. Use the spread (...) syntax - shallow
-2. Use the Object.assign() method - shallow
-3. Use the JSON.stringify() and JSON.parse() methods - deep
+1. Use the spread (...) syntax
+2. Use the Object.assign() method
 
 BONUS: it is possible to copy an existing array by creating a new one with the same elements by using map() method as well (along with Array.from if needed);
+
+A **deep copy** is a duplication of an object or array, including all of its nested objects. In this case we do not create another reference (pointer) to the original array, but duplicate the value itself. The most common way to achieve that is by using JSON.parse() and JSON.stringify() methods:
+
+    const originalArray = [
+      { name: "Alice", age: 25 },
+      { name: "Bob", age: 30 },
+      ];
+
+    const deepCopy = JSON.parse(JSON.stringify(originalArray));
+
+    deepCopy[0].age = 40;
+
+    console.log(originalArray); // Output: [ { name: 'Alice', age: 25 }, { name: 'Bob', age: 30 } ]
+    console.log(deepCopy);      // Output: [ { name: 'Alice', age: 40 }, { name: 'Bob', age: 30 } ]
 
 # Objects
 
@@ -181,6 +194,13 @@ In JavaScript, there are **four ways** to create an object — using object lite
 4. *Classes*: ES6 introduced a class keyword that allows us to create classes in JS; in a way, classes are templates that can be used to create instances of objects with 'new' keyword;
 
 NB: More examples here - https://medium.com/@mandeepkaur1/creating-objects-in-javascript-a896e6cfa6eb#:~:text=In%20JavaScript%2C%20there%20are%20four,existing%20object%20as%20a%20prototype.
+
+## Useful Object Methods
+
+1. **Object.assign(source, target)** - creates a shallow copy of an object;
+2. **Object.hasOwnProperty()** - checks if a certain property is present inside an object;
+3. **Object.seal()/Object.freeze()/Object.preventExtensions()** - prevents mofidications inside an object, "seals" is;
+4. **Object.create()** - creates an instance of an object and inherits the properties from the prototype;
 
 ## Object Destructuring 
 
@@ -459,6 +479,23 @@ There are several ways to write asynchronous code in JavaScript, including:
 3. Async/await: Introduced in ES2017, async/await is a syntactic sugar built on top of promises. It allows writing asynchronous code that looks and behaves more like synchronous code, making it easier to read and understand. The async keyword is used to define an asynchronous function, and the await keyword is used to wait for the completion of a promise before proceeding.
 
 Asynchronous code is important in JavaScript to handle time-consuming operations without blocking the main thread and to ensure that programs remain responsive. It allows for more efficient resource utilization and better user experience in applications that involve network requests, I/O operations, or any other tasks that can cause delays.
+
+## Promises
+
+We use promises for handling *asynchronous interactions in a sequential manner*. They are especially useful when we need to do an async operation and THEN do another async operation based on the results of the first one. For example, if you want to request the list of all flights and then for each flight you want to request some details about it. The promise represents the future value. It has an internal state (pending, fulfilled and rejected) and works like a state machine.
+
+A promise object has then method, where you can specify what to do when the promise is fulfilled or rejected.
+
+You can chain then() blocks, thus avoiding the callback hell. You can handle errors in the catch() block. After a promise is set to fulfilled or rejected state, it becomes immutable.
+
+Also mention that you know about more sophisticated concepts:
+
+- async/await which makes the code appear even more linear
+- RxJS observables can be viewed as the recyclable promises
+
+An article on the topic: https://opensourceconnections.com/blog/2014/02/16/a-simple-promise-implementation-in-about-20-lines-of-javascript/
+
+Simple promise implementation example: https://gist.github.com/softwaredoug/9044640
 
 ## Main Thread
 
@@ -1035,7 +1072,7 @@ Variables and functions that you declare inside an IIFE are not visible to the o
 
 ## JavaScript Operator Precedence
 
-More: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence
+More on the subject: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence
 
 The priority of the operators is evaluated the same as it is in basic maths. However, in case we have a row of the same operators, JavaScript engine will evaluate them from RIGHT to LEFT. Example:
 
@@ -1049,7 +1086,6 @@ First, typeof y will evaluate the y variable, which is 'undefined' by default. T
     var y;
     z = typeof y;
     y = z;
-
 
 # Node JS
 
@@ -1083,3 +1119,12 @@ Examples:
 - push notifications
 - background sync
 - offline caching 
+
+## Singleton Pattern
+
+The singleton pattern is a design pattern often used in JavaScript applications. What we do here is basically creating a class, and then one single instance of it. Then we export the instance and through it all the other modules of an app will have an access to the methods and attributes defined within the class. The class itself is unaccessible. 
+
+Benefits:
+- prevents from polluting the global scope
+- easier to maintain
+- easier to read and understand for the others

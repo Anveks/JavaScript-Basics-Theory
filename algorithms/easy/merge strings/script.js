@@ -14,4 +14,35 @@ var mergeAlternately = function(word1, word2) {
   return merged;
 };
 
-console.log(mergeAlternately('hhh', 'eee'));
+// console.log(mergeAlternately('hhh', 'eee'));
+
+// var arr = [10, 32, 65, 2];
+// for (var i = 0; i < arr.length; i++) {
+//   setTimeout(function() {
+//     console.log('The index of this number is: ' + i);
+//   }, 3000);
+// }
+
+// var arr = [10, 32, 65, 2];
+// arr.forEach(function(ele, i) {
+//   setTimeout(function() {
+//     console.log('The index of this number is: ' + i);
+//   }, 3000);
+// })
+
+function Person(name, age, salary) {
+  this.name = name;
+  this.age = age;
+  this.salary = salary;
+  this.incrementSalary = function (byValue) {
+    this.salary = this.salary + byValue;
+  };
+}
+
+function Employee(company){
+	this.company = company;
+}
+
+//Prototypal Inheritance 
+Employee.prototype = new Person("Nishant", 24,5000);
+
