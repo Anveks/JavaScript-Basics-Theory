@@ -1,7 +1,5 @@
 
-const sortStr = str => {
-  return str.split("").sort().join("")
-}
+const sortStr = str => str.split("").sort().join("");
 
 var findAnagrams = function(s, p) {
 
