@@ -28,29 +28,41 @@ var findAnagrams = function(s, p) {
 console.log(findAnagrams("cbaebabacd", "abc"));
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 // a function that tests if a string is a literal or an object:
 
-const testString = str => {
-  if (typeof(str) === 'string') return 'literal string';
-  if (str instanceof Object) return 'object';
-}
+// const testString = str => {
+//   if (typeof(str) === 'string') return 'literal string';
+//   if (str instanceof Object) return 'object';
+// }
 
-const objStr = new String('hello')
-console.log(testString(objStr));
+// const objStr = new String('hello')
+// console.log(testString(objStr));
 
-// merging two objects dynamically:
+// // merging two objects dynamically:
 
-var person = {
-	name : 'John',
-	age  : 24
-}
+// var person = {
+// 	name : 'John',
+// 	age  : 24
+// }
 
-var address = {
-	addressLine1 : 'Some Location x',
-	addressLine2 : 'Some Location y',
-	city : 'NewYork'
-} 
+// var address = {
+// 	addressLine1 : 'Some Location x',
+// 	addressLine2 : 'Some Location y',
+// 	city : 'NewYork'
+// } 
 
-const merge = (toObj, fromObj) => Object.assign(toObj, fromObj);
+// const merge = (toObj, fromObj) => Object.assign(toObj, fromObj);
 
-console.log(merge(person, address));
+// console.log(merge(person, address));
