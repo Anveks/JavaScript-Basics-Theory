@@ -25,10 +25,6 @@ var checkInclusion = function(s1, s2) {
         --currentHash[substrToCheck[k]];
       };
 
-      // for (key in currentHash) {
-        
-      // }
-
       if (Object.values(currentHash).every((elem) => elem === 0)){
         return true;
       }

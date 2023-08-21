@@ -45,3 +45,57 @@ TypeScript makes JavaScript better. 💘
 **Object** is a composite data type that groups together variables (known as properties or fields) and functions (methods) into a single unit. They provide a way to organize and structure data in a more meaningful and manageable manner. Objects allow you to encapsulate data and behavior related to a specific entity in your program. They play a central role in many programming paradigms, including object-oriented programming (OOP), where objects are used to model real-world entities and interactions between them.
 
 **Class** is a template used to create instances of classes - as objects. Has pre-defined list of properties and methods, and a constructor function used to initialize the new instances. Objects made out of a class are created with 'new' keyword. 
+
+## Unions and Intersection Types
+
+A **union type** ('|') is a type formed from two or more other types, representing values that may be any one of those types. We refer to each of these types as the union’s members.
+
+    function printId(id: number | string) {
+      console.log("Your ID is: " + id);
+    }
+    // OK
+    printId(101);
+    // OK
+    printId("202");
+    // Error
+    printId({ myID: 22342 });
+
+In this example we can see the union type for number/string. BUT: TypeScript will only allow an operation if it is *valid* for every member of the union. For example, if you have the union string | number, you can’t use methods that are only available on string:
+
+    function printId(id: number | string) {
+      console.log(id.toUpperCase());
+    Property 'toUpperCase' does not exist on type 'string | number'.
+      Property 'toUpperCase' does not exist on type 'number'.
+    }
+
+**Intersection types** ('&') are closely related to union types, but they are used very differently. An intersection type *combines multiple types into one*. This allows you to add together existing types to get a single type that has all the features you need. 
+
+For example, if you had networking requests with consistent error handling then you could separate out the error handling into its own type which is merged with types which correspond to a single response type.
+
+    interface ErrorHandling {
+      success: boolean;
+      error?: { message: string };
+    }
+    
+    interface ArtworksData {
+      artworks: { title: string }[];
+    }
+    
+    interface ArtistsData {
+      artists: { name: string }[];
+    }
+    
+    // These interfaces are composed to have
+    // consistent error handling, and their own data.
+    
+    type ArtworksResponse = ArtworksData & ErrorHandling; // an intersection of 2 intrfaces
+    type ArtistsResponse = ArtistsData & ErrorHandling;
+    
+    const handleArtistsResponse = (response: ArtistsResponse) => {
+      if (response.error) {
+        console.error(response.error.message);
+        return;
+      }
+    
+      console.log(response.artists);
+    };
