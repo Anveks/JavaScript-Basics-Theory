@@ -48,6 +48,8 @@ TypeScript makes JavaScript better. 💘
 
 ## Unions and Intersection Types
 
+Doc: https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html
+
 A **union type** ('|') is a type formed from two or more other types, representing values that may be any one of those types. We refer to each of these types as the union’s members.
 
     function printId(id: number | string) {
@@ -99,3 +101,178 @@ For example, if you had networking requests with consistent error handling then 
     
       console.log(response.artists);
     };
+
+## Static Function vs Instance Function 
+
+Ref: https://stackoverflow.com/questions/45594196/difference-between-static-function-declaration-and-the-normal-function-declarati#:~:text=A%20static%20method%20is%20callable,able%20to%20access%20that%20method.
+
+A static method (=function) is callable from the class itself. You do not have to create an instance of a class to call it. Usually used for utility purposes (like validations etc).
+
+    class MyClass {
+      static staticMethod() {
+        // ...
+      }
+    }
+
+    // Calling a static function
+    MyClass.staticMethod(someVariable);
+
+ A non-static method is callable from an instance of the class, so you basically have to create an object before being able to access that method.
+
+    class MyClass {
+      instanceMethod() {
+        // ...
+      }
+    }
+
+    // Creating an instance and calling an instance function
+    const obj = new MyClass();
+    obj.instanceMethod();
+
+## Polymorphism
+
+Polymorphism is the ability to create a class that has more than one form. Or in other words, classes have the same methods but different implementations. 
+
+Imagine we have two animal classes, one class is called Dog, the other class is called Cat. Both classes should have the same properties and methods.
+
+    class Animal {
+      public name: string;
+
+      constructor(name: string) {
+        this.name = name;
+      }
+
+      public makeSound(): void {
+        process.stdout.write('generic animal sound\n');
+      }
+    }
+
+    export class Dog extends Animal {
+      public makeSound(): void {
+        process.stdout.write('wuff wuff\n');
+      }
+    }
+
+    class Cat extends Animal {
+      public makeSound(): void {
+        process.stdout.write('meow meow\n');
+      }
+    }
+
+    const pocky: Cat = new Cat('Pocky');
+    pocky.makeSound(); // -> meow meow
+
+    const toshii: Dog = new Dog('Pocky');
+    toshii.makeSound(); // -> wuff wuff
+
+## Interfaces in TypeScript
+
+Doc: https://www.typescriptlang.org/docs/handbook/interfaces.html
+
+One of TypeScript’s core principles is that type checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural subtyping”. 
+
+In TypeScript, interfaces fill the role of *naming these types*, and are a powerful way of defining contracts within your code as well as contracts with code outside of your project. It is a way to define *a contract or a structure* that an object must adhere to.
+
+    interface LabeledValue {
+      label: string;
+    }
+    
+    function printLabel(labeledObj: LabeledValue) {
+      console.log(labeledObj.label);
+    }
+    
+    let myObj = { size: 10, label: "Size 10 Object" };
+    printLabel(myObj);
+
+Interfaces can be used to achieve *better type checking*, especially when dealing with complex data structures, classes, and function signatures.
+
+Interfaces can be extended, and classes can implement interfaces. This allows you to define reusable structures and behaviors that can be applied to different parts of your codebase.
+
+    interface Shape {
+      area(): number;
+    }
+
+    class Circle implements Shape {
+      constructor(private radius: number) {}
+
+      area() {
+        return Math.PI * this.radius ** 2;
+      }
+    }
+
+## Creating New Types with Interfaces
+
+In TypeScript, you can create a new type using a subset of an interface by simply using the interface name as the type. When you use an interface as a type, it automatically creates a type with the same structure as the interface. You can then pick specific properties from the interface to include in your new type.
+
+Here's how you can create a new type using a subset of an interface:
+```
+    interface Person {
+      firstName: string;
+      lastName: string;
+      age: number;
+    }
+
+    type BasicInfo = Pick<Person, "firstName" | "lastName">;
+
+    const personInfo: BasicInfo = {
+      firstName: "John",
+      lastName: "Doe",
+    };
+```
+
+## Interface vs Abstract Class
+
+An **interface** is a "contract" that defines the properties and methods of an object that implements it. Its like a list of properties and methods and their types. 
+
+    interface Electrician { // defining the methods for an Electrician
+      layWires(): void
+    }
+
+    interface Plumber { // defining the methods for a Plumber
+      layPipes(): void
+    }
+
+    function restoreHouse(e: Electrician, p: Plumber) {
+      e.layWires()
+      p.layPipes()
+    }
+
+An interface doesn't exist at all at runtime, so it is not possible to make an introspection. It is the classic JavaScript way to deal with object programming, but with a good control at compile time of the defined contracts.
+
+An **abstract clas**s is a special type of class that serves as a blueprint for the classes that want to inherit from it. An asbstract class can contain properties and methods, but you **cannot** instantiate it (create an instance), only inherit. 
+
+When you define an abstract class, you often try to control how a process has to be implemented. For example, you could write something like this:
+
+    abstract class HouseRestorer {
+      protected abstract layWires(): void
+      protected abstract layPipes(): void
+      restoreHouse() {
+        this.layWires()
+        this.layPipes()
+      }
+    }
+
+This abstract class HouseRestorer defines how the methods layWires and layPipes will be used, but it is up to a child class to implement the specialized treatments before it can be used.
+
+## Enums 
+
+Doc: https://www.typescriptlang.org/docs/handbook/enums.html#:~:text=Enums%20are%20one%20of%20the,numeric%20and%20string%2Dbased%20enums.
+
+Enum stands for 'enumeration'. It is a set of named constants. Using enums can make it easier to document intent, or create a set of distinct cases. TypeScript provides both numeric and string-based enums.
+
+For example, a numeric enum will look like the following:
+
+    enum Direction {
+      Up = 1,
+      Down,
+      Left,
+      Right,
+    }
+
+Above, we have a numeric enum where Up is initialized with 1. All of the following members are auto-incremented from that point on. In other words, Direction.Up has the value 1, Down has 2, Left has 3, and Right has 4.
+
+## Generics
+
+Doc: https://www.typescriptlang.org/docs/handbook/2/generics.html
+
+
