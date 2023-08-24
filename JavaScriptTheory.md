@@ -1,34 +1,10 @@
 # JS Theory
 
-- [Event Loop][#Event-Loop:-Stacks-and-Queues]
-- [Data Types][#Data-Types]
-- [Adding Elements](#Adding-Elements)
-- [Removing Elements](#Removing-Elements)
-- [Finding Elements (Primitive Types)](#Finding-Elements)
-- [The ...args Syntax](#The-args-syntax)
-- [Shallow Copy and Deep Copy](#Shallow-Copy-and-Deep-Copy)
-- [Objects](#Objects)
-- [Object Prototypes](#Object-Prototypes)
-- [Prototype design pattern](#prototype-design-pattern)
-- [Classes](#Classes)
-- [Data Structures](#Data-Structures:-Set-&-Map)
-- [Factory Functions and Constructor Functions](#Factory-Functions-and-Constructor-Functions)
-- [Asynchronous Code](#Asynchronous-Code)
-- [API](#API)
-- [DOM](#DOM)
-- [Events](#Events)
-- [Cookies](#Cookies)
-- [Scopes](#Scopes-of-a-variable-in-JavaScript)
-- [Functions](#Function-Declaration-vs-Function-Expression)
-- ["This" Keyword]('#This-Keyword')
-- [Concept of Hoisting](#Hoisting-in-JS)
-- [Imports and Exports](#Imports-and-Exports-in-JavaScript)
+A humongous compilation of JavaScript knowledge in bits and pieces, based on various youtube videos, articles and stack overflow. Almost all the sources are referenced either at the beginning or at the end of each section. Enjoy. 
 
-- [Memoization](#Memoization)
+p.s Click on the hamburger to the right for navigation.
 
-- [Node.js](#Node-JS)
-
-# Event Loop: Stacks and Queues
+# Event Loop
 
 A lecture from Philipp Roberts, the creator of Loupe: https://www.youtube.com/watch?v=8aGhZQkoFbQ
 
