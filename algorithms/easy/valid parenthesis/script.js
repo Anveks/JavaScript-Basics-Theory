@@ -1,19 +1,28 @@
 
 var isValid = function(s) {
-    const hash = {'(': ")", '{': "}", '[': "]"}
-    const stack = [];
+    const matches = [];
 
-    for (let character of s) {
-        if (hash[character]) {
-            stack.push(hash[character]);
-        } else if (stack.length > 0 && stack[stack.length - 1] === character) {
-            stack.pop()
-        } else {
-            return false;
+    for (let i = 0; i < s.length; i++) {
+        let char = s[i];
+        switch(char){
+            case '(': 
+                matches.push(')')
+                break;
+            case '{': 
+                matches.push('}')
+                break;
+            case '[': 
+                matches.push(']')
+                break;
+            default:
+                if (char !== matches.pop()){
+                    return false;
+                }              
         }
     }
 
-    return stack.length === 0;
+    console.log(matches);
+    return matches.length === 0;
 };
 
-console.log(isValid("()[]{}}")); // should return true
+console.log(isValid("()[]{}")); // should return true
