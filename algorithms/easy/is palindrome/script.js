@@ -1,13 +1,12 @@
 
 // number
-// var isPalindrome = function(x) {
-//     if (x < 0) return false;
-//     const reversed = `${x}`.split('').reverse().join('')
+var isPalindrome = function(x) {
+    if (x < 0) return false;
+    const reversed = `${x}`.split('').reverse().join(''); 
+    return `${x}` === reversed;
+};
 
-//     return `${x}` === reversed;
-// };
-
-// console.log(isPalindrome(121));
+console.log(isPalindrome(121));
 
 // string:
 var isPalindromeStr = function(s) {

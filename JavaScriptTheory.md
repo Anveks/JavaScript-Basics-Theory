@@ -1,6 +1,6 @@
 # JS Theory
 
-- [Event Loop][#Event-Loop]
+- [Event Loop][#Event-Loop:-Stacks-and-Queues]
 - [Data Types][#Data-Types]
 - [Adding Elements](#Adding-Elements)
 - [Removing Elements](#Removing-Elements)
@@ -311,7 +311,9 @@ console.log(sum(1, 2, 3, 4)); // Output: 10
 
 ```
 
-# Data Structures: Set & Map
+# Data Structures
+
+## Set & Map
 
 Data structures are ways of organizing and storing data to perform operations efficiently. They define the behavior and operations that can be performed on the stored data. 
 
