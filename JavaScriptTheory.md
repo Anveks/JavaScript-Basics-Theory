@@ -839,7 +839,7 @@ Another example for HOF that return a function:
 
 ## Hoisting in JS
 
-Hoisting is a JavaScript behavior where variable and function **declarations are moved to the top of their containing scope** during the execution phase, before the actual code execution.
+Hoisting is a JavaScript behavior where variable and function **declarations are moved to the top of their containing scope** during the compilation phase, before the actual code execution. It is a process of lifting the variables and giving them a space in memory.
 
 - Hoisting variable declarations:
 
@@ -867,6 +867,22 @@ In this example, the sayHello function declaration is hoisted to the top of the 
     };
 
 In case of function expressions - the variable is hoisted, but it's value, which is a function, is not. Therefore when we try to call the function before assignment, we get an error. 
+
+
+
+### Hoisting of var/let/const
+
+Article: https://javascript.plainenglish.io/how-hoisting-works-with-let-and-const-in-javascript-725616df7085#:~:text=Yes%2C%20variables%20declared%20with%20let,and%20automatically%20initialized%20to%20undefined%20.
+
+1. var
+- upon declatation: **hoisted**
+- default definition: **undefined**
+- is overridable
+
+2. let
+- upon declatation: **NOT hoisted**; exists in *temporal dead zone
+- default definition: **undefined**
+- is overridable
 
 # Imports and Exports in JavaScript
 
