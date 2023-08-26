@@ -1,0 +1,39 @@
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+
+var searchInsert = function(nums, target) {
+
+  // bad approach:
+  // let prevNum = target - 1;
+
+  // if (nums.indexOf(target) !== -1) {
+  //   return nums.indexOf(target);
+  // } else {
+  //   while (nums.indexOf(prevNum) === -1) {
+  //     --prevNum;
+  //   }
+  //   return nums.indexOf(prevNum) + 1;
+  // }
+
+  // binary approach:
+  let high = nums.length - 1;
+  let low = 0;
+  while (low <= high) {
+      let mid = Math.floor((high + low) / 2);
+      if (nums[mid] == target) return mid;
+      else if (nums[mid] > target) {
+          high = mid - 1;
+      } else {
+          low = mid + 1;
+      }
+  }
+  return low;
+
+};
+
+console.log(searchInsert([1,3,6,8,9], 5));
+// https://www.youtube.com/watch?v=_GuSAPmgl48
