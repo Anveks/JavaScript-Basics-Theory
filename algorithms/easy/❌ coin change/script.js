@@ -22,3 +22,4 @@ var coinChange = function(coins, amount) {
 
 console.log(coinChange([186,419,83,408], 6249)); // in this case returns иди нахуй instead of -1
 
+
