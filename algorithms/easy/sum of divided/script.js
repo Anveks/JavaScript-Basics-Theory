@@ -1,4 +1,4 @@
-
+// approach #1
 const sumOfDivided = num => {
   let n = num;
 
@@ -12,18 +12,21 @@ const sumOfDivided = num => {
 
 console.log(sumOfDivided(609));
 
-// a better approach without converting num to string and string to num:
+// approach #2:
+const sumOfDivided2 = num => {
+  while (num > 10) {
+    sum = 0;
 
-// while (num >= 10) {
-//   let sum = 0;
+    while (num > 0){
+      let lastDigit = num % 10; // extracting the last digit
+      sum += lastDigit; // on each iteration - add the last num to the sum
+      num = Math.trunc(num / 10); // getting new num without the last digit
+    }
+    // when there are no more digits inside the num, 
+    num = sum;
+  }
 
-//   // Extract digits and sum them up
-//   while (num > 0) {
-//     sum += num % 10;
-//     num = Math.floor(num / 10);
-//   }
+  return num;
+};
 
-//   num = sum;
-// }
-
-// return num;
+console.log(sumOfDivided2(609));
