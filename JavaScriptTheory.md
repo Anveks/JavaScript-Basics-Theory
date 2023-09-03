@@ -26,6 +26,38 @@ Terminology:
 - Call Stack - a data structure that keeps track of the functions being called and executed. It uses the 'Last In First Out' (LIFO) principle to store and manage function invocation. 
 - Task (JavaScript) Queue - is one of the linear data structures similar to stack; the difference is that it works based on First In First Out (FIFO) principle.
 
+# Event Delegation
+
+NB: https://habr.com/ru/articles/512782/
+
+Event delegation is a concept in JavaScript where you attach a single event listener to a common ancestor of multiple elements rather than attaching individual event listeners to each of those elements. This technique leverages event propagation (bubbling) in the DOM.
+
+You attach an event listener to a higher-level element (usually a parent) that will listen for events that occur on its descendant elements. When an event occurs on a descendant element, it bubbles up the DOM hierarchy to the ancestor element, where the event listener is waiting. This allows you to handle events on multiple elements with a single event listener.
+
+Pros:
+1. Reduces the number of event listeners in your application, which can improve performance, especially in scenarios with a large number of elements.
+2. It works well with dynamically added elements, as you don't need to attach new event listeners every time an element is added or removed.
+3. Easier to maintain the code.
+
+Example: 
+```
+    <ul id="myList">
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+    </ul>
+
+    // Attach a single event listener to the <ul> element (ancestor)
+    document.getElementById("myList").addEventListener("click", function(event) {
+      if (event.target.tagName === "LI") {
+        // Handle the click event on <li> elements
+        console.log("Clicked on", event.target.textContent);
+      }
+    });
+
+```
+In this example, a single event listener is attached to the <ul> element to listen for click events on its <li> descendants. When an <li> is clicked, the event bubbles up to the <ul> where the event listener handles it, logging the clicked item's text content. This is a more efficient way to handle click events on multiple list items.
+
 # Data Types
 
 Based on: https://www.javascripttutorial.net/javascript-data-types/
@@ -194,6 +226,12 @@ Example:
     console.log(firstN); // returns 'John'
     ...
 
+## Dot Notation vs Bracket Notation
+
+The main difference between dot notation and square bracket notation in JavaScript lies in how they are used to access object properties:
+1. Dot Notation: used when a property name in known and fixed, has no spaces and starts with a letter. In case you are adressing a non-existend property, you will get an error. 
+2. Bracket Notation: used when property name is dynamic, includes special characters or spaces. If a property inside the square brackets doesn't exist, it will return an 'undefined'.
+
 ## Object Prototypes
 
 Each object has a hidden property called "[[Prototype]]", which is a reference to another object called the 'prototype'. The concept of Prototypes is fundamental in JavaScript and it plays an important role in object **inheritance**. 
@@ -288,6 +326,17 @@ console.log(sum(1, 2, 3, 4)); // Output: 10
 ```
 
 # Data Structures
+
+A great video course about data structures: https://www.youtube.com/watch?v=bum_19loj9A&list=PLBZBJbE_rGRV8D7XZ08LK6z-4zPoWzu5H
+
+A great site for the beginners: https://brilliant.org/ 
+
+Data stuctures are **ways to store data on your computer**. Algoritms are the set of instructions that are to be performed upon certain DS. It is crutial for software development because optimization of code greatly depends on it (space and time complexities). 
+
+Each DS has its own usage cases, advantages and disadvantages. To solve one algorithmic problem you can go with hundreds of different approaches. But how do we chose the best one? 
+
+## Arrays
+An array is a collection of items of a single type. It is very rare when types are mixed inside an array, like mixing both strings and integers.
 
 ## Set & Map
 
@@ -868,21 +917,30 @@ In this example, the sayHello function declaration is hoisted to the top of the 
 
 In case of function expressions - the variable is hoisted, but it's value, which is a function, is not. Therefore when we try to call the function before assignment, we get an error. 
 
-
-
 ### Hoisting of var/let/const
 
 Article: https://javascript.plainenglish.io/how-hoisting-works-with-let-and-const-in-javascript-725616df7085#:~:text=Yes%2C%20variables%20declared%20with%20let,and%20automatically%20initialized%20to%20undefined%20.
 
 1. var
-- upon declatation: **hoisted**
-- default definition: **undefined**
-- is overridable
+- Hoisted and initialized with undefined.
+- Function-scoped, meaning it's only available within the function where it's declared.
+- Can be declared without an initial value.
+- Can be re-declared within the same scope.
+- Allows you to reassign values.
 
 2. let
-- upon declatation: **NOT hoisted**; exists in *temporal dead zone
-- default definition: **undefined**
-- is overridable
+- Hoisted but not initialized, so using it before declaration results in a ReferenceError.
+- Block-scoped, meaning it's available within the nearest enclosing block (if, loop, etc.).
+- Can be declared without an initial value.
+- Cannot be re-declared within the same scope.
+- Allows reassignment of values.
+
+3. const 
+- Hoisted but not initialized, so using it before declaration results in a ReferenceError.
+- Block-scoped.
+- Must be initialized upon declaration; you cannot declare it without an initial value.
+- Cannot be re-declared within the same scope.
+- Values assigned to const variables cannot be reassigned.
 
 # Imports and Exports in JavaScript
 
@@ -1135,4 +1193,16 @@ Benefits:
 - easier to maintain
 - easier to read and understand for the others
 
+# Local Storage vs Session Storage
 
+In summary, **localStorage is for persistent, long-term storage across browser sessions**, while **sessionStorage is for temporary, session-specific storage**. The choice between them depends on your application's requirements for data persistence.
+
+1. Local Storage:
+- Data stored in localStorage persists even after the browser is closed and reopened. It has no expiration time.
+- It's accessible across browser sessions and tabs/windows from the same domain.
+- You can store larger amounts of data in localStorage, typically up to 5-10 MB per domain depending on the browser.
+
+2. Session Storage:
+1. Data stored in sessionStorage is available only for the duration of a page session. It is lost when the page session ends, typically when the browser is closed or the tab is closed.
+2. It's isolated to the tab/window that created it. Data stored in one tab/window is not accessible from other tabs/windows.
+3. Similar to localStorage, you can also store data in sessionStorage, but it's designed for temporary data storage during a user's visit to a website.
