@@ -1,28 +1,4 @@
 
-// function generate(numRows) {
-//   if (numRows <= 0 || numRows >= 30) return -1; // exception
-
-//   const triangle = [];
-
-//   for (let i = 0; i < numRows; i++) {
-//     const tempArr = [];
-
-//     for (let j = 0; j <= i; j++) {
-//       if (j === 0 || j === i) {
-//         tempArr.push(1);
-//       } else {
-//         tempArr.push(triangle[i - 1][j - 1] + triangle[i - 1][j]);
-//       }
-//     }
-
-//     triangle.push(tempArr);
-//   }
-
-//   return triangle;
-// }
-
-// console.log(generate(5));
-
 function generate(rowsNum) {
   if (rowsNum <= 0 || rowsNum >= 30) return -1; // exception
 
@@ -37,11 +13,16 @@ function generate(rowsNum) {
     } else if (i === 1) {
       tempArr = [1, 1];
       triangle.push(tempArr);
-    } else if (i !== 0 && i !==1) {
+    } else {
       const prevRow = triangle[i - 1];
-      for (let j = 0; j < prevRow.length; j++) {
-        // Your logic for generating values in the current row goes here
+      tempArr.push(1); // First element of the row is always 1
+
+      for (let j = 1; j < prevRow.length; j++) {
+        tempArr.push(prevRow[j - 1] + prevRow[j]); // we have to add the prev number to the current one since the first number is always 1
       }
+
+      tempArr.push(1); // Last element of the row is always 1 too
+      triangle.push(tempArr);
     }
   }
 
@@ -49,4 +30,5 @@ function generate(rowsNum) {
 }
 
 console.log(generate(5));
+
 
