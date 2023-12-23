@@ -11,13 +11,40 @@
 </head>
 <body>
 
-  <div class="navbar">
-    <h1>banki</h1>
-  </div>
+  <!-- TOP NAV -->
+  <nav class="navbar">
+    <h1>bankii</h1>
+    <div class="logo">LOGO</div>
+    <div class="login">
+      <input type="text" placeholder="login">
+      <input type="password" placeholder="password">
+      <button class="login-btn">&rarr;</button>
+    </div>
+  </nav>
   
+  <!-- main app body -->
   <div class="main">
-    <div class="balance"></div>
-    div
+    <!-- balance and date -->
+    <div class="balance-date">
+
+      <div class="current-balance">
+        <div> Balance: </div>
+        <div class="date">00/00/00</div>
+      </div>
+      
+      <div class="balance-sum">0.00$</div>
+    </div>
+
+    <!-- transitions and operations -->
+    <div class="transitions-operations">
+      <div class="transitions"> transitions list </div>
+
+      <div class="operations">
+        <div class="transfer">transfer</div>
+        <div class="request">request</div>
+        <div class="close">close</div>
+      </div>
+    </div>
   </div>
   
 </body>

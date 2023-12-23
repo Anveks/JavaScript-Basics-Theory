@@ -9,3 +9,54 @@ body {
   height: 100vh;
   background: linear-gradient(45deg, white, rgb(175, 175, 175));
 }
+
+.main {
+  display: grid;
+  grid-template-columns: 1 2;
+  justify-content: center;
+  background-color: aqua;
+  height: 90vh;
+}
+
+.navbar {
+  font-size: larger;
+  margin-top: 1rem;
+  margin-right: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.balance-date {
+  height: 10%;
+  background-color: gold;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.current-balance {
+  background-color: pink;
+}
+
+input {
+  padding: 0.5rem;
+  border-radius: 5rem;
+  border: transparent;
+  text-align: center;
+  font-size: .9rem;
+}
+
+button {
+  background-color: transparent;
+  border: transparent;
+  transform: scale(2);
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  color: orangered;
+  transition: .3s;
+}
+
