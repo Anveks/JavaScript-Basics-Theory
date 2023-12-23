@@ -13,8 +13,8 @@
 
   <!-- TOP NAV -->
   <nav class="navbar">
-    <h1>bankii</h1>
-    <div class="logo">LOGO</div>
+    <h1>Hello, username!</h1>
+    <img src="img/logo.png" class="logo"></img>
     <div class="login">
       <input type="text" placeholder="login">
       <input type="password" placeholder="password">
@@ -28,21 +28,40 @@
     <div class="balance-date">
 
       <div class="current-balance">
-        <div> Balance: </div>
-        <div class="date">00/00/00</div>
+        <div> Current balance </div>
+        <div class="date">Date: 00/00/00</div>
       </div>
-      
-      <div class="balance-sum">0.00$</div>
+
+      <div class="balance-sum">0.00 $</div>
     </div>
 
     <!-- transitions and operations -->
     <div class="transitions-operations">
-      <div class="transitions"> transitions list </div>
 
+      <!-- transitions -->
+      <div class="transitions"></div>
+
+      <!-- operations -->
       <div class="operations">
-        <div class="transfer">transfer</div>
-        <div class="request">request</div>
-        <div class="close">close</div>
+        <div class="transfer">
+          <h3>transfer</h3>
+          <div class="transfer-form">
+            <input type="text">
+            <label>transfer to</label>
+
+            <input type="number">
+            <label>amount</label>
+
+            <button>&rarr;</button>
+          </div>
+        </div>
+
+        <div class="request">
+          <h3>request</h3>
+        </div>
+        <div class="close">
+          <h3>close</h3>
+        </div>
       </div>
     </div>
   </div>
