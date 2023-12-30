@@ -3,18 +3,18 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Carrois Gothic SC", sans-serif;
+  width: auto;
 }
 
 body {
-  display: grid;
   height: 100vh;
   background: linear-gradient(45deg, white, lightgray);
 }
 
 /* NAVBAR BEFORE THE APP */
 .navbar {
+  width: 100%;
   font-size: larger;
-  margin-top: 1rem;
   margin-right: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -24,33 +24,53 @@ body {
 
 img {
   height: 5rem;
-  width: 5rem;
 }
 
 /* MAIN APP */
 .main {
   display: grid;
-  grid-template-columns: 1 2;
-  justify-content: center;
+  grid-template-columns: 1fr 1fr;
   height: 90vh;
+  margin: 0 auto;
+  gap: 2rem;
+  margin-top: 1rem;
+  justify-content: space-between;
+  width: 80%;
+  height: fit-content;
   /* opacity: 0; */
 }
 
-/* FIRST LAYER */
-.balance-date {
-  margin-top: 3rem;
-  height: 10%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-content: space-between;
-  align-items: center;
-  gap: 40rem;
+.cont-1 {
+  /* background-color: yellow; */
+/* width: 100%; */
 }
 
+.cont-2 {
+  /* background-color: greenyellow; */
+  /* width: 50%; */
+}
+
+/* FIRST CONT */
 .current-balance {
   font-size: 1.5rem;
 }
 
+.transitions {
+  margin-top: 1rem;
+  background-color: white;
+  padding: 1rem;
+  height: 60vh;
+  overflow-y: auto;
+  border-radius: .5rem;
+}
+
+.summary {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* SECOND CONT*/
 .date {
   font-size: 1rem;
   color: gray;
@@ -60,16 +80,34 @@ img {
   font-size: 2.5rem;
 }
 
+.operations {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5em;
+  height: 60vh;
+}
+
+.operations input {
+  opacity: .5;
+  width: 12rem;
+}
+
+.logout {
+  margin-top: 1rem;
+}
+
 input {
   padding: 0.5rem;
   border-radius: 5rem;
   border: transparent;
   text-align: center;
   font-size: .9rem;
+  width: 10rem;
 }
 
 button {
   background-color: transparent;
+  width: 10%;
   border: transparent;
   transform: scale(2);
   margin-left: 1rem;
@@ -81,69 +119,53 @@ button:hover {
   transition: .3s;
 }
 
-/* SECOND LAYER */
-.transitions-operations {
-  margin-top: 1rem;
-  height: 65vh;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 1rem;
-  justify-items: center;
-  padding: 1rem;
-}
-
-.transitions {
-  background-color: white;
-}
-
-.operations {
-  display: grid;
-  gap: 0.5em;
-}
-
-.operations input {
-  opacity: .5;
-  width: 70%;
-}
-
-.transitions, .operations {
-  border-radius: .5rem;
-  width: 100%;
-}
-
 .transfer {
   padding: 1rem;
   background-color: #f42b03;
-  background-image: linear-gradient(316deg, #f42b03 0%, #ffbe0b 74%);  
+  background-image: linear-gradient(316deg, #f48403 0%, #ffbe0b 74%);  
   border-radius: .5rem;
   align-items: center;
+  justify-content: center;
 }
 
 .transfer-form {
-  display: grid;
+  margin-top: 1rem;
+  /* display: grid; */
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.transfer-form button {
+  background-color: whitesmoke;
+  width: fit-content;
+  margin-top: .5rem;
+  padding: 0 .5rem;
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.05rem;
+}
+
+.transfer > div {
+  display: flex;
+  text-align: center;
 }
 
 .request {
   padding: 1rem;
   background-color: #378b29;
-  background-image: linear-gradient(315deg, #378b29 0%, #74d680 74%);
+  background-image: linear-gradient(315deg, #378b29 0%, #43ce54 74%);
   border-radius: .5rem;
 }
 
 .close {
   padding: 1rem;
   background-color: #f71735;
-  background-image: linear-gradient(147deg, #f71735 0%, #db3445 74%);
+  background-image: linear-gradient(147deg, #ce2037 0%, #db3445 74%);
   border-radius: .5rem;
 }
 
 /* transitions */
-.transitions {
-  padding: 1rem;
-  height: 60vh;
-  overflow-y: auto;
-}
-
 .transition:last-of-type {
   border-bottom: none; /* Remove the border for the last .transition element */
 }
@@ -155,6 +177,12 @@ button:hover {
   align-items: center;
   padding: 1rem;
   border-bottom: .1rem solid lightgray;
+  gap: 1rem;
+}
+
+.transition-type {
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .transition-sum {
@@ -164,12 +192,12 @@ button:hover {
 
 .deposit {
   background-color: #378b29;
-  background-image: linear-gradient(315deg, #378b29 0%, #74d680 74%);
+  background-image: linear-gradient(315deg, #378b29 0%, #43ce54 74%);
 }
 
 .withdrawal {
   background-color: #f71735;
-  background-image: linear-gradient(147deg, #f71735 0%, #db3445 74%);
+  background-image: linear-gradient(147deg, #ce2037 0%, #db3445 74%);
 }
 
 .deposit, .withdrawal {

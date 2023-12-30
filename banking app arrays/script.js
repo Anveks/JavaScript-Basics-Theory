@@ -30,8 +30,8 @@ const account4 = {
 const accounts = [account1,  account2, account3, account4];
 
 const transactionsCont = document.querySelector(".transitions");
-console.log(transactionsCont);
 
+// ADDING TRANSITIONS TO THE HTML:
 const displayTransactions = function (transactions) {
   transactions.forEach((tr, index) => {
 
@@ -48,6 +48,30 @@ const displayTransactions = function (transactions) {
     transactionsCont.insertAdjacentHTML("afterbegin", htmlElem)
 
   });
-}
-
+};
 displayTransactions(account1.transactions);
+
+// ADDING A NEW PROPERTY TO THE ACCOUNTS OBJECTS: 
+const createUsernames = function(accounts) {
+  accounts.forEach(acc => {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(" ")
+      .map((name, i) => name
+      .split("")[0])
+      .join("");
+  });
+}
+createUsernames(accounts)
+
+// FILTERING THE TRANSACTIONS:
+const deposits = account1.transactions.filter(tr => tr > 0);
+const withdrawals = account1.transactions.filter(tr => tr < 0);
+
+// GETTING THE BALANCE:
+    function calcAndPrintBalance(account) {
+  const balance = account.transactions.reduce((acc, elem) => acc + elem, 0); 
+  document.querySelector(".balance-sum").innerHTML = `${balance} $`;
+};
+
+calcAndPrintBalance(account1)

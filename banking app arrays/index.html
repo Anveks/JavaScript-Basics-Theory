@@ -24,35 +24,49 @@
   
   <!-- main app body -->
   <div class="main">
-    <!-- balance and date -->
-    <div class="balance-date">
 
+    <!-- CONT-1 -->
+    <div class="cont-1">
+      <!-- DATE -->
       <div class="current-balance">
         <div> Current balance </div>
         <div class="date">Date: 00/00/00</div>
       </div>
-
-      <div class="balance-sum">0.00 $</div>
+      <!-- TRANSITIONS -->
+      <div class="transitions"></div>
+      <!-- SUM UP -->
+      <div class="summary">
+        <div>IN</div>
+        <div class="income">0$</div>
+        <div>OUT</div>
+        <div class="outcome">0$</div>
+        <div>INTEREST</div>
+        <div class="interest">0$</div>
+      </div>
     </div>
 
-    <!-- transitions and operations -->
-    <div class="transitions-operations">
-
-      <!-- transitions -->
-      <div class="transitions"></div>
-
-      <!-- operations -->
+    <!-- CONT-2 -->
+    <div class="cont-2">
+      <!-- BALANCE -->
+      <div class="balance-sum">0.00 $</div>
+      <!-- OPERATIONS -->
       <div class="operations">
         <div class="transfer">
           <h3>transfer</h3>
           <div class="transfer-form">
-            <input type="text">
-            <label>transfer to</label>
+            <div>
+              <input type="text">
+              <label>transfer to</label>
+            </div>
 
-            <input type="number">
-            <label>amount</label>
+            <div>
+              <input type="number">
+              <label>amount</label>
+            </div>
 
-            <button>&rarr;</button>
+            <div>
+              <button>&rarr;</button>
+            </div>
           </div>
         </div>
 
@@ -63,6 +77,8 @@
           <h3>close</h3>
         </div>
       </div>
+      <!-- LOGOUT -->
+      <div class="logout">will be logged out in: 00.00s</div>
     </div>
   </div>
   
