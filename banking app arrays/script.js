@@ -49,7 +49,7 @@ const displayTransactions = function (transactions) {
 
   });
 };
-displayTransactions(account1.transactions);
+// displayTransactions(account1.transactions);
 
 // ADDING A NEW PROPERTY TO THE ACCOUNTS OBJECTS: 
 const createUsernames = function(accounts) {
@@ -62,16 +62,52 @@ const createUsernames = function(accounts) {
       .join("");
   });
 }
-createUsernames(accounts)
+createUsernames(accounts);
 
 // FILTERING THE TRANSACTIONS:
 const deposits = account1.transactions.filter(tr => tr > 0);
 const withdrawals = account1.transactions.filter(tr => tr < 0);
 
 // GETTING THE BALANCE:
-    function calcAndPrintBalance(account) {
+function calcAndPrintBalance(account) {
   const balance = account.transactions.reduce((acc, elem) => acc + elem, 0); 
   document.querySelector(".balance-sum").innerHTML = `${balance} $`;
 };
+// calcAndPrintBalance(account1);
 
-calcAndPrintBalance(account1)
+function calcAndPrintSummary(account) {
+  const income = account.transactions.filter((tr) => tr > 0).reduce((acc, tr) => tr + acc);
+
+  const outcome = account.transactions.filter((tr) => tr < 0).reduce((acc, tr) => tr + acc);
+
+  const interest = account.transactions.filter((tr) => tr > 0).map((tr) => (tr * account.interestRate)/100).reduce((acc, tr) => tr + acc);
+  console.log(interest);
+
+  document.querySelector(".income").innerHTML = `${income}$`;
+  document.querySelector(".outcome").innerHTML = `${Math.abs(outcome)}$`;
+  document.querySelector(".interest").innerHTML = `${Math.abs(Math.trunc(interest))}$`;
+};
+// calcAndPrintSummary(account1);
+
+document.querySelector(".login-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.querySelector(".main").classList.remove("hidden");
+
+  const username = document.querySelector(".username").value.toLowerCase();
+  const pin = document.querySelector(".pin").value;
+
+  console.log(username);
+  const account = accounts.find((acc) => acc.username === username);
+
+  if (account.pin === pin) {
+    calcAndPrintBalance(account);
+    calcAndPrintSummary(account);
+    displayTransactions(account.transactions);
+  } else {
+    pin.classList.toggle("hidden")
+  }
+  
+});
+
+
+

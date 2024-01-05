@@ -17,14 +17,22 @@
     <h1>Hello, username!</h1>
     <img src="img/logo.png" class="logo"></img>
     <div class="login">
-      <input type="text" placeholder="login">
-      <input type="password" placeholder="password">
+      <div>
+        <input type="text" placeholder="login" class="username">
+        <p class="msg error hidden">incorrect login</p>
+      </div>
+
+      <div>
+        <input type="password" placeholder="pin" class="pin">
+        <p class="msg error hidden">incorrect pin</p>
+      </div>
+
       <button class="login-btn">&rarr;</button>
     </div>
   </nav>
   
   <!-- main app body -->
-  <div class="main">
+  <div class="main hidden">
 
     <!-- CONT-1 -->
     <div class="cont-1">
@@ -43,6 +51,10 @@
         <div class="outcome">0$</div>
         <div>INTEREST</div>
         <div class="interest">0$</div>
+        <button class="sort">
+          sort
+          &darr;
+        </button>
       </div>
     </div>
 

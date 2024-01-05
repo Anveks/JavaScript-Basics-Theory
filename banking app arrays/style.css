@@ -22,12 +22,38 @@ body {
   align-items: center;
 }
 
+.login {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.login > div > input {
+  width: 80%;
+  position: relative;
+}
+
+.msg {
+  position: absolute;
+}
+
+.login > div > input:hover {
+  border: 2px solid lightgray;
+  transition: .1s;
+}
+
+.login-btn {
+  margin: 0;
+  padding: 0;
+}
+
 img {
   height: 5rem;
 }
 
 /* MAIN APP */
 .main {
+  transition: .5s;
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 90vh;
@@ -37,7 +63,15 @@ img {
   justify-content: space-between;
   width: 80%;
   height: fit-content;
-  /* opacity: 0; */
+}
+
+.error {
+  font-size: .8rem;
+  color: #ce2037;
+}
+
+.hidden {
+  opacity: 0;
 }
 
 .cont-1 {
@@ -68,6 +102,21 @@ img {
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+  font-size: smaller;
+}
+
+.income, .interest {
+  color: #378b29;
+  font-size: larger;
+}
+
+.outcome {
+  color: #ce2037;
+  font-size: larger;
+}
+
+.sort {
+  font-size: .5rem;
 }
 
 /* SECOND CONT*/
@@ -78,6 +127,7 @@ img {
 
 .balance-sum{
   font-size: 2.5rem;
+  text-align: right;
 }
 
 .operations {
