@@ -71,6 +71,7 @@ const withdrawals = account1.transactions.filter(tr => tr < 0);
 // GETTING THE BALANCE:
 function calcAndPrintBalance(account) {
   const balance = account.transactions.reduce((acc, elem) => acc + elem, 0); 
+  currentAccount.balance = balance;
   document.querySelector(".balance-sum").innerHTML = `${balance} $`;
 };
 // calcAndPrintBalance(account1);
@@ -81,7 +82,6 @@ function calcAndPrintSummary(account) {
   const outcome = account.transactions.filter((tr) => tr < 0).reduce((acc, tr) => tr + acc);
 
   const interest = account.transactions.filter((tr) => tr > 0).map((tr) => (tr * account.interestRate)/100).reduce((acc, tr) => tr + acc);
-  console.log(interest);
 
   document.querySelector(".income").innerHTML = `${income}$`;
   document.querySelector(".outcome").innerHTML = `${Math.abs(outcome)}$`;
@@ -89,25 +89,77 @@ function calcAndPrintSummary(account) {
 };
 // calcAndPrintSummary(account1);
 
+// rewrite later:
+function toggleErrMessage(elem) {
+
+  console.log(document.querySelector(`.${elem}`));
+  document.querySelector(`.${elem}`).nextElementSibling.classList.remove("hidden");
+
+  setTimeout(() => {
+    document.querySelector(`.${elem}`).nextElementSibling.classList.add("hidden");
+  }, 2000)  
+}
+
+function updateUI(account) {
+  calcAndPrintBalance(account);
+  calcAndPrintSummary(account);
+  displayTransactions(account.transactions);
+}
+
+let currentAccount;
+
+//  LOG IN + UI UPDATE
 document.querySelector(".login-btn").addEventListener("click", (e) => {
   e.preventDefault();
-  document.querySelector(".main").classList.remove("hidden");
 
-  const username = document.querySelector(".username").value.toLowerCase();
-  const pin = document.querySelector(".pin").value;
+  const username = document.querySelector(".username");
+  const pin = document.querySelector(".pin");
 
-  console.log(username);
-  const account = accounts.find((acc) => acc.username === username);
-
-  if (account.pin === pin) {
-    calcAndPrintBalance(account);
-    calcAndPrintSummary(account);
-    displayTransactions(account.transactions);
-  } else {
-    pin.classList.toggle("hidden")
+  function clearInputs() {
+    username.value = "";
+    pin.value = "";
   }
-  
+
+  const account = accounts.find((acc) => acc.username === username.value.toLowerCase());
+
+  if (account) {
+    if (account.pin === +pin.value) {
+      currentAccount = account;
+      document.querySelector(".main").classList.remove("hidden");
+      document.querySelector(".welcome").textContent = `Welcome back, ${account.owner}!`;
+      updateUI(account);
+    } else {
+        clearInputs();
+        toggleErrMessage("pin");
+    }
+  } else {
+    clearInputs();
+    toggleErrMessage("username");
+  }
+
 });
+
+const transferBtn = document.querySelector(".transfer-btn");
+transferBtn.addEventListener("click", () => {
+
+  const usernameInput = document.querySelector(".transfer-form").children[0].querySelector("input").value;
+
+  const recepientAccount = accounts.find((acc) => acc.username === usernameInput ); 
+
+  console.log(recepientAccount);
+
+  const amount = +document.querySelector(".transfer-form").children[1].querySelector("input").value;
+
+  if (amount > 0 && currentAccount.balance >= amount && currentAccount.username !== recepientAccount?.username) {
+    console.log('transfer valid');
+    currentAccount.transactions.push(-amount);
+    recepientAccount.transactions.push(amount);
+    updateUI(currentAccount);
+  } else {
+    console.log('transfer invalid');
+  }
+});
+
 
 
 

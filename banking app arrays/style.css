@@ -34,6 +34,7 @@ body {
 }
 
 .msg {
+  transition: .8s;
   position: absolute;
 }
 
@@ -53,7 +54,7 @@ img {
 
 /* MAIN APP */
 .main {
-  transition: .5s;
+  transition: all .5s;
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 90vh;
@@ -71,7 +72,7 @@ img {
 }
 
 .hidden {
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .cont-1 {
@@ -176,6 +177,7 @@ button:hover {
   border-radius: .5rem;
   align-items: center;
   justify-content: center;
+  
 }
 
 .transfer-form {
@@ -185,15 +187,14 @@ button:hover {
   margin-right: 1rem;
 }
 
-.transfer-form button {
+.transfer-form > button {
   background-color: whitesmoke;
-  width: fit-content;
+  height: fit-content;
   margin-top: .5rem;
   padding: 0 .5rem;
   border-radius: 5rem;
   display: flex;
   justify-content: center;
-  padding-bottom: 0.05rem;
 }
 
 .transfer > div {
