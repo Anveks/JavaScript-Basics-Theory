@@ -170,6 +170,10 @@ button:hover {
   transition: .3s;
 }
 
+.transfer, .request, .close {
+  height: 10rem;
+}
+
 .transfer {
   padding: 1rem;
   background-color: #f42b03;
@@ -177,12 +181,10 @@ button:hover {
   border-radius: .5rem;
   align-items: center;
   justify-content: center;
-  
 }
 
-.transfer-form {
+.transfer-form, .close-form {
   margin-top: 1rem;
-  /* display: grid; */
   gap: 0.5rem;
   margin-right: 1rem;
 }
@@ -197,9 +199,20 @@ button:hover {
   justify-content: center;
 }
 
-.transfer > div {
+.transfer > div, .close > div {
   display: flex;
   text-align: center;
+}
+
+.close-form > button {
+  font-size: .5rem;
+  background-color: whitesmoke;
+  height: fit-content;
+  margin-top: .5rem;
+  padding: 0 .5rem;
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .request {
@@ -209,12 +222,57 @@ button:hover {
   border-radius: .5rem;
 }
 
+.request-form {
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.request-form > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 45%;
+}
+
+.request-form > button {
+  background-color: whitesmoke;
+  height: fit-content;
+  margin-top: .5rem;
+  padding: 0 .5rem;
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
 .close {
   padding: 1rem;
   background-color: #f71735;
   background-image: linear-gradient(147deg, #ce2037 0%, #db3445 74%);
   border-radius: .5rem;
+  display: flex;
+  flex-direction: row;
 }
+
+/* .close > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 45%;
+}
+
+.close > button {
+  background-color: whitesmoke;
+  height: fit-content;
+  margin-top: .5rem;
+  padding: 0 .5rem;
+  border-radius: 5rem;
+  display: flex;
+  justify-content: center;
+  font-size: .5rem;
+} */
 
 /* transitions */
 .transition:last-of-type {

@@ -160,6 +160,15 @@ transferBtn.addEventListener("click", () => {
   }
 });
 
+// CLOSE ACC
+const user = document.querySelector(".close-form input[type='text']").value;
+const pin = document.querySelector(".close-form input[type='number']").value;
+
+
+console.log(user);
+
+
+
 
 
 
