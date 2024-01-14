@@ -27,13 +27,27 @@ const account4 = {
   pin: 4444
 };
 
-const accounts = [account1,  account2, account3, account4];
+const account5 = {
+  owner: "Michael Green",
+  transactions: [-200, 100, -300, 500, -150, 1200, -700],
+  interestRate: 1.8,
+  pin: 5555
+};
+
+const accounts = [account1,  account2, account3, account4, account5];
 
 const transactionsCont = document.querySelector(".transitions");
 
 // ADDING TRANSITIONS TO THE HTML:
-const displayTransactions = function (transactions) {
-  transactions.forEach((tr, index) => {
+const displayTransactions = function (transactions, sort = false) {
+
+  transactionsCont.innerHTML = '';
+
+  const trns = sort 
+    ? transactions.slice().sort((a,b) => a - b) 
+    : transactions;
+
+  trns.forEach((tr, index) => {
 
     const type = tr > 0 ? 'deposit' : "withdrawal";
     
@@ -49,7 +63,6 @@ const displayTransactions = function (transactions) {
 
   });
 };
-// displayTransactions(account1.transactions);
 
 // ADDING A NEW PROPERTY TO THE ACCOUNTS OBJECTS: 
 const createUsernames = function(accounts) {
@@ -128,6 +141,7 @@ document.querySelector(".login-btn").addEventListener("click", (e) => {
       document.querySelector(".main").classList.remove("hidden");
       document.querySelector(".welcome").textContent = `Welcome back, ${account.owner}!`;
       updateUI(account);
+      clearInputs()
     } else {
         clearInputs();
         toggleErrMessage("pin");
@@ -161,11 +175,61 @@ transferBtn.addEventListener("click", () => {
 });
 
 // CLOSE ACC
-const user = document.querySelector(".close-form input[type='text']").value;
-const pin = document.querySelector(".close-form input[type='number']").value;
+document.querySelector(".close-acc").addEventListener("click", (e) => {
+  e.preventDefault();
 
+  const userToClose = document.querySelector(".close-form").children[0].querySelector("input").value;
+  const pinToClose = +document.querySelector(".close-form").children[1].querySelector("input").value;
 
-console.log(user);
+  console.log(currentAccount);
+
+  if (userToClose.toLowerCase() === currentAccount.username) {
+    if (pinToClose === currentAccount.pin) {
+      const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+
+      document.querySelector(".main").classList.add("hidden");
+      accounts.splice(index, 1);
+    }
+  }
+
+  document.querySelector(".close-form").children[0].querySelector("input").value = "";
+  document.querySelector(".close-form").children[1].querySelector("input").value = "";
+});
+
+// LOAN
+document.querySelector(".loan-btn").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const loanAmount = +document.querySelector(".request-form").children[0].querySelector("input").value;
+
+  if (loanAmount > 0) {
+    const tenPercentDeposit = currentAccount.transactions.some((tr) => tr > loanAmount / 100 * 10);
+    
+    if (tenPercentDeposit) {
+      currentAccount.transactions.push(loanAmount);
+      updateUI(currentAccount);
+    }
+  }
+
+  document.querySelector(".request-form").children[0].querySelector("input").value = "";
+});
+
+// SORT
+let sorted = true;
+document.querySelector(".sort").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // if (sorted) {
+  //   sorted = !sorted;
+  //   displayTransactions(currentAccount.transactions, true);
+  // } else {
+  //   sorted = !sorted;
+  //   displayTransactions(currentAccount.transactions);
+  // }
+
+  displayTransactions(currentAccount.transactions, sorted);
+  sorted = !sorted;
+});
 
 
 
