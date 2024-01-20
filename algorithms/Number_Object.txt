@@ -1,0 +1,10 @@
+Notes on the Number object:
+
+1. Number.parseInt(something) / Number.parseFloat("something"):
+- turns everything into a number + gets rid of all the unnecessary strings, for example: Number.parseInt("33px") will return "33";
+
+2. Number.isNan():
+- checks if something is NOT a number;
+
+3. Number.isFinite():
+- also checks if something is a number;  is designed to check for finite numbers though. 

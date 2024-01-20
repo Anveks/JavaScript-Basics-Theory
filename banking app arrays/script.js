@@ -1,37 +1,53 @@
 
+// generating random dates because why not 
+function generateRandomDate() {
+  const start = new Date(2020, 0, 1); // Start date (January 1, 2020)
+  const end = new Date(); // Current date and time
+
+  const randomTimestamp = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+  const randomDate = new Date(randomTimestamp);
+
+  return randomDate.toISOString(); // Convert to ISO format
+}
+
 const account1 = {
   owner: "Anna Smith",
   transactions: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 1111
+  interestRate: 1.2,
+  pin: 1111,
+  dates: Array.from({ length: 8 }, generateRandomDate),
 };
 
 const account2 = {
   owner: "John Doe",
   transactions: [1000, -500, 300, -250, -100, 800, -350],
   interestRate: 1.5,
-  pin: 2222
+  pin: 2222,
+  dates: Array.from({ length: 7 }, generateRandomDate),
 };
 
 const account3 = {
   owner: "Emily Johnson",
   transactions: [300, -200, 50, 400, -300, 600, -100, 200],
   interestRate: 1.0,
-  pin: 3333
+  pin: 3333,
+  dates: Array.from({ length: 8 }, generateRandomDate),
 };
 
 const account4 = {
   owner: "Michael Brown",
   transactions: [-200, 100, -300, 500, -150, 1200, -700],
   interestRate: 1.8,
-  pin: 4444
+  pin: 4444,
+  dates: Array.from({ length: 7 }, generateRandomDate),
 };
 
 const account5 = {
   owner: "Michael Green",
   transactions: [-200, 100, -300, 500, -150, 1200, -700],
   interestRate: 1.8,
-  pin: 5555
+  pin: 5555,
+  dates: Array.from({ length: 7 }, generateRandomDate),
 };
 
 const accounts = [account1,  account2, account3, account4, account5];
