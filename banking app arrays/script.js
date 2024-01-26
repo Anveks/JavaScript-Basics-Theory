@@ -16,6 +16,7 @@ const account1 = {
   interestRate: 1.2,
   pin: 1111,
   dates: Array.from({ length: 8 }, generateRandomDate),
+  locale: "he-IL"
 };
 
 const account2 = {
@@ -24,6 +25,7 @@ const account2 = {
   interestRate: 1.5,
   pin: 2222,
   dates: Array.from({ length: 7 }, generateRandomDate),
+  locale: "en-US"
 };
 
 const account3 = {
@@ -32,6 +34,7 @@ const account3 = {
   interestRate: 1.0,
   pin: 3333,
   dates: Array.from({ length: 8 }, generateRandomDate),
+  locale: "hi-IN"
 };
 
 const account4 = {
@@ -40,6 +43,7 @@ const account4 = {
   interestRate: 1.8,
   pin: 4444,
   dates: Array.from({ length: 7 }, generateRandomDate),
+  locale: "en-ZA"
 };
 
 const account5 = {
@@ -48,6 +52,7 @@ const account5 = {
   interestRate: 1.8,
   pin: 5555,
   dates: Array.from({ length: 7 }, generateRandomDate),
+  locale: "en-US"
 };
 
 const accounts = [account1,  account2, account3, account4, account5];
@@ -66,11 +71,19 @@ const displayTransactions = function (transactions, sort = false) {
   trns.forEach((tr, index) => {
 
     const type = tr > 0 ? 'deposit' : "withdrawal";
+
+    const trDate = new Date(currentAccount.dates[index]);
+
+    const day = `${trDate.getDay() + 1}`.padStart(2,0);
+    const month = `${trDate.getMonth() + 1}`.padStart(2,0);
+    const year = trDate.getFullYear();
+
+    console.log(trDate, day, month, year);
     
     const htmlElem = `
     <div class="transition">
       <div class="transition-type ${type}"> ${index + 1} ${type} </div>
-      <div class="transition-date"> 0/0/0 </div>
+      <div class="transition-date"> ${day}/${month}/${year} </div>
       <div class="transition-sum"> ${tr} $ </div>  
     </div>
     `;
@@ -79,6 +92,57 @@ const displayTransactions = function (transactions, sort = false) {
 
   });
 };
+
+// experimenting with Intl API for internationalizing dates
+const dateFormatter = (date, locale, calcDays = false) => {
+  const calcDaysPassed = (date1, date2) => {
+    return Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+  };
+
+  // checking if the locale elem is valid 
+  if (!isValidLocale(locale)) {
+    console.error(`Invalid locale: ${locale}`);
+    return "";
+  }
+
+  // adding options
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+
+  if (calcDays) {
+    const daysPassed = calcDaysPassed(new Date(), date);
+    console.log(daysPassed);
+    if (daysPassed === 0) {
+      return "Today";
+    } else if (daysPassed === 1) {
+      return "Yesterday";
+    } else if (daysPassed <= 7) {
+      return `${daysPassed} days ago`;
+    } else {
+      return new Intl.DateTimeFormat(locale, options).format(date);
+    }
+  } else {
+    return new Intl.DateTimeFormat(locale, options).format(date);
+  }
+};
+
+const isValidLocale = (locale) => {
+  try {
+    new Intl.DateTimeFormat(locale);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+setInterval(() => {
+  document.querySelector(".date").textContent = dateFormatter(currentAccount.date, currentAccount.locale);
+}, 100);
 
 // ADDING A NEW PROPERTY TO THE ACCOUNTS OBJECTS: 
 const createUsernames = function(accounts) {
@@ -169,6 +233,7 @@ document.querySelector(".login-btn").addEventListener("click", (e) => {
 
 });
 
+// TRANSFER
 const transferBtn = document.querySelector(".transfer-btn");
 transferBtn.addEventListener("click", () => {
 
@@ -184,6 +249,9 @@ transferBtn.addEventListener("click", () => {
     console.log('transfer valid');
     currentAccount.transactions.push(-amount);
     recepientAccount.transactions.push(amount);
+
+    currentAccount.dates.push(new Date());
+    recepientAccount.dates.push(new Date());
     updateUI(currentAccount);
   } else {
     console.log('transfer invalid');
