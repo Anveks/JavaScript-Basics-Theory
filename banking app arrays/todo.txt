@@ -1,0 +1,6 @@
+css:
+1. fix main cont width (make it fixed)
+2. make operation fields fit to each screen
+
+script:
+1. fix the sorting with dates

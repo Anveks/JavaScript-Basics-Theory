@@ -56,6 +56,7 @@ const account5 = {
 };
 
 const accounts = [account1,  account2, account3, account4, account5];
+let currentAccount;
 
 const transactionsCont = document.querySelector(".transitions");
 
@@ -94,7 +95,7 @@ const displayTransactions = function (transactions, sort = false) {
 };
 
 // experimenting with Intl API for internationalizing dates
-const dateFormatter = (date, locale, calcDays = false) => {
+const dateFormatter = (date, locale = navigator.language, calcDays = false) => {
   const calcDaysPassed = (date1, date2) => {
     return Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
   };
@@ -112,6 +113,7 @@ const dateFormatter = (date, locale, calcDays = false) => {
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
+    second: "numeric"
   };
 
   if (calcDays) {
@@ -139,10 +141,6 @@ const isValidLocale = (locale) => {
     return false;
   }
 };
-
-setInterval(() => {
-  document.querySelector(".date").textContent = dateFormatter(currentAccount.date, currentAccount.locale);
-}, 100);
 
 // ADDING A NEW PROPERTY TO THE ACCOUNTS OBJECTS: 
 const createUsernames = function(accounts) {
@@ -199,8 +197,6 @@ function updateUI(account) {
   displayTransactions(account.transactions);
 }
 
-let currentAccount;
-
 //  LOG IN + UI UPDATE
 document.querySelector(".login-btn").addEventListener("click", (e) => {
   e.preventDefault();
@@ -221,7 +217,14 @@ document.querySelector(".login-btn").addEventListener("click", (e) => {
       document.querySelector(".main").classList.remove("hidden");
       document.querySelector(".welcome").textContent = `Welcome back, ${account.owner}!`;
       updateUI(account);
-      clearInputs()
+      clearInputs();
+
+      document.querySelector(".date").textContent = dateFormatter(currentAccount?.date);
+
+      setInterval(() => {
+        document.querySelector(".date").textContent = dateFormatter(currentAccount.date);
+      }, 100);
+
     } else {
         clearInputs();
         toggleErrMessage("pin");
@@ -252,6 +255,9 @@ transferBtn.addEventListener("click", () => {
 
     currentAccount.dates.push(new Date());
     recepientAccount.dates.push(new Date());
+
+    document.querySelector(".transfer-form").children[0].querySelector("input").value = "";
+    document.querySelector(".transfer-form").children[1].querySelector("input").value = "";
     updateUI(currentAccount);
   } else {
     console.log('transfer invalid');
@@ -280,7 +286,7 @@ document.querySelector(".close-acc").addEventListener("click", (e) => {
   document.querySelector(".close-form").children[1].querySelector("input").value = "";
 });
 
-// LOAN
+// REQUEST
 document.querySelector(".loan-btn").addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -291,6 +297,7 @@ document.querySelector(".loan-btn").addEventListener("click", (e) => {
     
     if (tenPercentDeposit) {
       currentAccount.transactions.push(loanAmount);
+      currentAccount.dates.push(new Date());
       updateUI(currentAccount);
     }
   }
@@ -314,6 +321,43 @@ document.querySelector(".sort").addEventListener("click", (e) => {
   displayTransactions(currentAccount.transactions, sorted);
   sorted = !sorted;
 });
+
+// LOGOUT COUNTDOWN
+function startCountdown() {
+  const duration = 10 * 60; // 10 minutes in seconds
+  let seconds = duration;
+
+  function updateCountdown() {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = `${seconds % 60}`.padStart(2,0);
+
+    document.querySelector(".countdown-timer").textContent = `${minutes}:${remainingSeconds}`;
+
+    console.log(`${minutes}:${remainingSeconds}`);
+
+    if (seconds > 0) {
+      seconds--;
+    } else {
+      console.log("Countdown completed!");
+      clearInterval(countdownInterval);
+
+      document.querySelector(".main").classList.add("hidden");
+      currentAccount = "";
+      document.querySelector(".welcome").textContent = "Log in to get started";
+    }
+  }
+
+  // Initial call to display the initial time
+  updateCountdown();
+
+  // Set up an interval to update the countdown every second
+  const countdownInterval = setInterval(updateCountdown, 500);
+}
+
+// Start the countdown
+startCountdown();
+
+
 
 
 

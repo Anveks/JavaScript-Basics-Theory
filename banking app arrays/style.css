@@ -15,11 +15,16 @@ body {
 .navbar {
   width: 100%;
   font-size: larger;
-  margin-right: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
+}
+
+.welcome {
+  margin-left: 5rem;
+  text-align: justify;
+  white-space: nowrap;
 }
 
 .login {
