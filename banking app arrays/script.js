@@ -60,32 +60,43 @@ let currentAccount;
 
 const transactionsCont = document.querySelector(".transitions");
 
+console.log(currentAccount?.dates);
+
 // ADDING TRANSITIONS TO THE HTML:
-const displayTransactions = function (transactions, sort = false) {
+const displayTransactions = function (transactions, dates, sort = false) {
+
+  const datesAndTrns = [];
+
+  for (const index in transactions) {
+    datesAndTrns.push({ [transactions[index]]: dates[index] });
+  }
 
   transactionsCont.innerHTML = '';
 
+  const sortedDatesAndTrns = datesAndTrns.slice().sort((a, b) => {
+    console.log(Object.keys(a));
+    return Object.keys(a)[0] - Object.keys(b)[0];
+  });
+
   const trns = sort 
-    ? transactions.slice().sort((a,b) => a - b) 
-    : transactions;
+    ? sortedDatesAndTrns 
+    : datesAndTrns;
 
-  trns.forEach((tr, index) => {
+    trns.forEach((tr, index) => {
 
-    const type = tr > 0 ? 'deposit' : "withdrawal";
+    const type = Object.keys(tr) > 0 ? 'deposit' : "withdrawal";
 
-    const trDate = new Date(currentAccount.dates[index]);
+    const trDate = new Date(Object.values(tr));
 
     const day = `${trDate.getDay() + 1}`.padStart(2,0);
     const month = `${trDate.getMonth() + 1}`.padStart(2,0);
     const year = trDate.getFullYear();
-
-    console.log(trDate, day, month, year);
     
     const htmlElem = `
     <div class="transition">
       <div class="transition-type ${type}"> ${index + 1} ${type} </div>
       <div class="transition-date"> ${day}/${month}/${year} </div>
-      <div class="transition-sum"> ${tr} $ </div>  
+      <div class="transition-sum"> ${Object.keys(tr)} $ </div>  
     </div>
     `;
 
@@ -194,7 +205,7 @@ function toggleErrMessage(elem) {
 function updateUI(account) {
   calcAndPrintBalance(account);
   calcAndPrintSummary(account);
-  displayTransactions(account.transactions);
+  displayTransactions(account.transactions, account.dates);
 }
 
 //  LOG IN + UI UPDATE
@@ -213,6 +224,7 @@ document.querySelector(".login-btn").addEventListener("click", (e) => {
 
   if (account) {
     if (account.pin === +pin.value) {
+
       currentAccount = account;
       document.querySelector(".main").classList.remove("hidden");
       document.querySelector(".welcome").textContent = `Welcome back, ${account.owner}!`;
@@ -224,6 +236,9 @@ document.querySelector(".login-btn").addEventListener("click", (e) => {
       setInterval(() => {
         document.querySelector(".date").textContent = dateFormatter(currentAccount.date);
       }, 100);
+
+      // Start the countdown
+      startCountdown();
 
     } else {
         clearInputs();
@@ -318,12 +333,16 @@ document.querySelector(".sort").addEventListener("click", (e) => {
   //   displayTransactions(currentAccount.transactions);
   // }
 
-  displayTransactions(currentAccount.transactions, sorted);
+  displayTransactions(currentAccount.transactions, currentAccount.dates, sorted);
   sorted = !sorted;
 });
 
 // LOGOUT COUNTDOWN
-function startCountdown() {
+function startCountdown(newLogin = false) {
+  if (newLogin) {
+    clearInterval(countdownInterval);
+  }
+
   const duration = 10 * 60; // 10 minutes in seconds
   let seconds = duration;
 
@@ -333,7 +352,7 @@ function startCountdown() {
 
     document.querySelector(".countdown-timer").textContent = `${minutes}:${remainingSeconds}`;
 
-    console.log(`${minutes}:${remainingSeconds}`);
+    // console.log(`${minutes}:${remainingSeconds}`);
 
     if (seconds > 0) {
       seconds--;
@@ -354,8 +373,6 @@ function startCountdown() {
   const countdownInterval = setInterval(updateCountdown, 500);
 }
 
-// Start the countdown
-startCountdown();
 
 
 

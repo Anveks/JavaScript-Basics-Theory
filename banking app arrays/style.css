@@ -80,16 +80,6 @@ img {
   opacity: 0;
 }
 
-.cont-1 {
-  /* background-color: yellow; */
-/* width: 100%; */
-}
-
-.cont-2 {
-  /* background-color: greenyellow; */
-  /* width: 50%; */
-}
-
 /* FIRST CONT */
 .current-balance {
   font-size: 1.5rem;
@@ -150,6 +140,8 @@ img {
 
 .logout {
   margin-top: 1rem;
+  display: flex;
+  gap: .5rem;
 }
 
 input {

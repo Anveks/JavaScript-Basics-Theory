@@ -1,0 +1,25 @@
+
+:root {
+  --color-red: #ce2037;
+  --color-green: #378b29;
+  --color-orange: #f42b03;
+  --color-yellow: #f48403;
+  --color-yellow-light: #ffbe0b;
+  --color-lightgreen: #43ce54;
+  --color-darkred: #f71735;
+  --color-darkred-light: #ce2037;
+  --color-darkred-dark: #db3445;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Carrois Gothic SC", sans-serif;
+  width: auto;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(45deg, white, lightgray);
+}
