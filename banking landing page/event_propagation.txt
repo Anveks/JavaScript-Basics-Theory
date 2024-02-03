@@ -1,0 +1,9 @@
+
+quick note on event propagation
+
+each (almost each) event in JS has three lifespan segments:
+1. capruting phase (start element -> target element)
+2. target phase (reaching the target elem)
+3. bubbling phase (target elem -> start elem (like the whole html))
+
+When you attach an event listener to an element, you can specify whether you want to listen during the capturing phase, the target phase, or the bubbling phase using the addEventListener method. The third parameter, which is a boolean, determines the phase (true for capturing, false for bubbling). If omitted or false, it defaults to the bubbling phase.

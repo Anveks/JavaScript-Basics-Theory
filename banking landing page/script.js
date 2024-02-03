@@ -27,3 +27,23 @@ for (let i = 0; i < btnsOpenModal.length; i++)
       closeModal();
     }
 });
+
+const btnScroll = document.querySelector(".btn-scroll");
+const section1 = document.querySelectorAll(".section")[0];
+
+btnScroll.addEventListener("click", (e) => {
+  const section1_coords = section1.getBoundingClientRect();
+
+  // old school way with calculating the coordinates of the elements:
+  window.scrollTo({
+    left: section1_coords.left,
+    top: section1_coords.top - 55 + window.pageYOffset,
+    behavior: "smooth",
+  });
+
+  // modern way:
+  // section1.scrollIntoView({
+  //   behavior: "smooth",
+  // });
+
+});
