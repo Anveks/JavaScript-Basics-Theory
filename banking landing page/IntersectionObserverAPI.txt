@@ -1,0 +1,29 @@
+
+ The IntersectionObserver is a web API that provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport. It's commonly used to implement lazy loading of images, infinite scrolling, and other features based on element visibility in the viewport.
+
+ usage:
+
+ 1. create an observer:
+
+    const observer = new IntersectionObserver(callback, options);
+
+
+2. set the target element to observe:
+
+    const targetElement = document.querySelector('.target-element');
+
+3. define the callback func (gets invoked based upon the options!):
+
+    function callback(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // The target element is now in the viewport
+        } else {
+          // The target element is not in the viewport
+        }
+      });
+    }
+
+4. activate the observer:
+
+    observer.observe(targetElement);

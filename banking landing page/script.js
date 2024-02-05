@@ -80,11 +80,19 @@ document
 
   });
 
+// ❗this is a bad approach because it means creating a function on each tab elem - in case we have a lot of them it will slower the performance
+// [...tabs].forEach((tab, i) => {
+//   tab.addEventListener("click", function(e) {
+//     alert("tabbed")
+//   });
+// });
+
 // menu fade animation:
 const nav = document.querySelector(".nav");
 
+// the first param here is the even itself, not the opacity value; opacity is stored in the context! 
 function handleHover(e) {
-  console.log(this); // this is the number that we pass as an argument 
+  // console.log(this); // this is the number that we pass as an argument 
 
   if (e.target.classList.contains("link")){
     const currentLink = e.target;
@@ -99,17 +107,43 @@ function handleHover(e) {
   }
 }
 
-// using the bind method we pass the event automatically + the additional parameter
+// bind method creates a new function; then we pass the opacity value that can be accessible through the this keyword:
 nav.addEventListener("mouseover", handleHover.bind(.5));
 nav.addEventListener("mouseout", handleHover.bind(1));
 
-// ❗this is a bad approach because it means creating a function on each tab elem - in case we have a lot of them it will slower the performance
-// [...tabs].forEach((tab, i) => {
-//   tab.addEventListener("click", function(e) {
-//     alert("tabbed")
-//   });
+// implementing sticky navigation:
+const header = document.querySelector(".header");
+const initialCoord = header.getBoundingClientRect();
+
+// ❗using the scroll is a bad approach because this e.listener fires upon each slight change in the viewport
+// window.addEventListener("scroll", function(e) {
+//   // 1. you can go to css > find nav > add position fixed
+//   // OR:
+//   if (this.window.scrollY > initialCoord.top) {
+//     nav.classList.add("sticky");
+//   } else {
+//     nav.classList.remove("sticky");
+//   }
 // });
 
+// a better approach using the Intersection Observer API:
+const obsCallback = function (entries, observer) {
+  const entry = entries[0];
+  console.log(entry);
+
+  if (!entry.isIntersecting) nav.classList.add("sticky");
+  else nav.classList.remove("sticky");
+};
+
+// const obsOptions = {
+//   root: null, // the viewport 
+//   threshold: 0.2 // the change (here it means 10%)
+// };
+
+const navHeight = nav.getBoundingClientRect().height;
+
+const observer = new IntersectionObserver(obsCallback, { root: null, threshold:  0, rootMargin: `-${navHeight}px`}); // each time the viewport changes to 10% the callback gets invoked
+observer.observe(header)
 
 // TESTING EVENT PROPAGATION
 // const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);

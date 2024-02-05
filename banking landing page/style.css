@@ -41,14 +41,21 @@ body {
 
 /* NAV */
 .nav {
-  background-color: white;
+  /* background-color: white; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   z-index: 3;
+  transition: .3s;
+}
+
+.nav.sticky {
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.95);
+  transition: .5s;
 }
 
 .nav-logo {
@@ -147,7 +154,7 @@ img {
 }
 
 hr {
-  height: .005rem; /* Set the height of the line */
+  height: .05rem; /* Set the height of the line */
   background-color: lightgray; /* Set the color of the line */
   border: none; /* Remove the default border */
   margin: 10px 0; /* Add margin for spacing above and below the line */

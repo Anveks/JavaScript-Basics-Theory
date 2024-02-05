@@ -1,3 +1,9 @@
 
 css:
 1. check how to change the SHAPE of the background elements using linear gradient + degrees
+
+2. change the operations active css to display\display:none instead of changing the z-index (otherwise the wider screens have issue) - OR set fixed width for each operation container 
+
+3. check why rootMargin in IntersectionObserverAPI does not work and the navbar overlays the sections (not good visually)
+
+
