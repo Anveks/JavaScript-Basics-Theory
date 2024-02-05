@@ -47,3 +47,91 @@ btnScroll.addEventListener("click", (e) => {
   // });
 
 });
+
+// testing event delegation through elements via event propagation feature:
+// 1. add event listener to a common parent element
+document.querySelector(".nav-links").addEventListener("click", function (e) {
+  e.preventDefault();
+  // 2. determine what element originated the event 
+  if (e.target.classList.contains("link")) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({behavior: "smooth"})
+  }
+});
+
+// adding tabbed component with associative content:
+const tabs = document.querySelectorAll(".operations-tab");
+const tabsCont = document.querySelector(".operations-cont");
+const operations = document.querySelectorAll(".operation");
+
+// proparating the event from parent comp to child c:
+document
+  .querySelector(".operations-buttons")
+  .addEventListener("click", function(e) {
+    if (!e.target) return;
+
+    // removing classes from elems
+    [...tabs].forEach((t, i) => { t.classList.remove("btn-active") });
+    [...operations].forEach((operation, i) => { operation.classList.remove("operation-active") });
+
+    // adding classes to elems:
+    e.target.classList.add("btn-active");
+    document.querySelector(`.operation-${e.target.dataset.tab}`).classList.add("operation-active");
+
+  });
+
+// menu fade animation:
+const nav = document.querySelector(".nav");
+
+function handleHover(e) {
+  console.log(this); // this is the number that we pass as an argument 
+
+  if (e.target.classList.contains("link")){
+    const currentLink = e.target;
+    const siblings = currentLink.parentElement.children;
+    const logo = document.querySelector(".nav-logo");
+
+    [...siblings].forEach((sib) => {
+      if (sib !== currentLink) sib.style.opacity = this;
+    });
+
+    logo.style.opacity = this;
+  }
+}
+
+// using the bind method we pass the event automatically + the additional parameter
+nav.addEventListener("mouseover", handleHover.bind(.5));
+nav.addEventListener("mouseout", handleHover.bind(1));
+
+// ❗this is a bad approach because it means creating a function on each tab elem - in case we have a lot of them it will slower the performance
+// [...tabs].forEach((tab, i) => {
+//   tab.addEventListener("click", function(e) {
+//     alert("tabbed")
+//   });
+// });
+
+
+// TESTING EVENT PROPAGATION
+// const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+// const randomColor = () => `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+// const navLinks = document.querySelector(".nav-links").getElementsByTagName("button");
+// [...navLinks].forEach((btn, i) => {
+//   btn.addEventListener("click", (e) => {
+//     console.log(e.target);
+//     console.log('this is from a button');
+//     e.target.style.backgroundColor = randomColor();
+//   });
+// });
+
+// document.querySelector(".nav-links").addEventListener("click", (e) => {
+//   e.target.style.backgroundColor = randomColor();
+//   console.log('this is from the nav buttons div');
+//   console.log(e.target);
+// })
+
+// document.querySelector(".nav").addEventListener("click", (e) => {
+//   e.target.style.backgroundColor = randomColor();
+//   console.log('this is from the navigation div');
+//   console.log(e.target);
+// }, true);

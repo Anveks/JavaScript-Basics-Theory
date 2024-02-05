@@ -55,24 +55,28 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  transition: .5s;
 }
 
-.nav-buttons {
+.nav-links {
   display: flex;
   gap: 3rem;
 }
 
-.nav-buttons > button {
+.nav-links > a {
   font-size: larger;
   border: transparent;
   background-color: transparent;
+  display: flex;
+  align-items: center;
+  transition: .5s;
 }
 
-.nav-buttons > button:hover {
+.nav-links > a:hover {
   cursor: pointer;
 }
 
-.nav-buttons > button:last-child {
+.nav-links > a:last-child {
   background: linear-gradient(135deg, var(--color-lightgreen), var(--color-green));
   color: snow;
   padding: .5rem 1rem;
@@ -214,9 +218,10 @@ hr {
 
 .operations-buttons > button {
   padding: 1rem;
-  font-size: 3vh;
+  font-size: 1.7vw;
   border: transparent;
   border-radius: 10rem;
+  transition: .3s;
 }
 
 .operations-buttons > button:hover {
@@ -225,7 +230,13 @@ hr {
 
 .btn-active {
   position: absolute;
-  top: 30%;
+  transform: translateY(-20%);
+  transition: .3s;
+}
+
+.btn-inactive {
+  transform: translateY(0);
+  transition: .3s;
 }
 
 .transfer-btn, .loan-btn, .close-btn {

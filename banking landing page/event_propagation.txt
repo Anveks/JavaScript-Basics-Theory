@@ -1,6 +1,8 @@
 
 quick note on event propagation
 
+Events are generated at the ROOT of the documents, NOT at the target element right away.
+
 each (almost each) event in JS has three lifespan segments:
 1. capruting phase (start element -> target element)
 2. target phase (reaching the target elem)

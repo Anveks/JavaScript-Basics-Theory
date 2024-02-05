@@ -16,11 +16,11 @@
       <h2>Demo Landing</h2>
     </div>
 
-    <div class="nav-buttons">
-      <button class="nav-features">Features</button>
-      <button class="nav-opeartions">Opearations</button>
-      <button class="nav-testimonials">Testimonials</button>
-      <button class="nav-open-acc btn--show-modal">Open account</button>
+    <div class="nav-links">
+      <a class="nav-features link" href="#features">Features</a>
+      <a class="nav-opeartions link" href="#operations">Opearations</a>
+      <a class="nav-testimonials link" href="#testimonials">Testimonials</a>
+      <a class="nav-open-acc btn--show-modal link">Open account</a>
     </div>
 
   </div>
@@ -43,7 +43,7 @@
   <hr>
   
   <!-- FEATURES -->
-  <section class="features section">
+  <section class="features section" id="features">
     <div class="section-title">
       <p>FEATURES</p>
 
@@ -83,7 +83,7 @@
   </ы>
 
   <!-- OPERATIONS -->
-  <section class="operations section">
+  <section class="operations section" id="operations">
     <div class="section-title">
       <p>OPERATIONS</p>
 
@@ -91,15 +91,15 @@
     </div>
 
     <div class="operations-buttons">
-      <button class="transfer-btn btn-active">01 Instant Transfers</button>
-      <button class="loan-btn">02 Instant Loans</button>
-      <button class="close-btn">03 Instant Closing</button>
+      <button class="transfer-btn operations-tab btn-active" data-tab="1">01 Instant Transfers</button>
+      <button class="loan-btn operations-tab" data-tab="2">02 Instant Loans</button>
+      <button class="close-btn operations-tab" data-tab="3">03 Instant Closing</button>
     </div>
 
     <!-- OPERATIONS LIST -->
     <div class="operations-cont">
 
-      <div class="transfer operation-active">
+      <div class="transfer operation-active operation operation-1">
         <img src="images/palceholder.jpg" alt="" class="operation-logo">
 
         <div class="operation-title-desc">
@@ -112,7 +112,7 @@
   
       </div>
 
-      <div class="loan">
+      <div class="loan operation operation-2">
         <img src="images/palceholder.jpg" alt="" class="operation-logo">
 
         <div class="operation-title-desc">
@@ -125,7 +125,7 @@
   
       </div>
 
-      <div class="closing">
+      <div class="closing operation operation-3">
         <img src="images/palceholder.jpg" alt="" class="operation-logo">
 
         <div class="operation-title-desc">
@@ -144,7 +144,7 @@
   <hr>
 
   <!-- TESTINOMIALS -->
-  <section class="testimonials section">
+  <section class="testimonials section" id="testimonials">
     <div class="section-title">
       <p>NOT SURE YET?</p>
 
