@@ -6,4 +6,4 @@ css:
 
 3. check why rootMargin in IntersectionObserverAPI does not work and the navbar overlays the sections (not good visually)
 
-
+NB: hr changed to top-border of each section so think about centrilizing the content of each section instead of playing around with IntersectionObserverAPI

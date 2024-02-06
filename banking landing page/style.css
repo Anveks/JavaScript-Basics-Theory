@@ -161,7 +161,6 @@ hr {
   margin: 3rem 0;
 }
 
-
 .section-title {
   display: flex;
   flex-direction: column;
@@ -182,6 +181,17 @@ hr {
 .section-title > h3 {
   width: 60%;
   font-size: 3vw;
+}
+
+section {
+  border-top: 1px solid red;
+  transform: translateY(0);
+  transition: .8s;
+}
+
+.section-hidden {
+  opacity: 0;
+  transform: translateY(8rem); /* this moves the elem lower on y axis */
 }
 
 /* FEATURES */

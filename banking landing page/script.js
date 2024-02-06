@@ -142,30 +142,27 @@ const obsCallback = function (entries, observer) {
 
 const navHeight = nav.getBoundingClientRect().height;
 
-const observer = new IntersectionObserver(obsCallback, { root: null, threshold:  0, rootMargin: `-${navHeight}px`}); // each time the viewport changes to 10% the callback gets invoked
-observer.observe(header)
+const observer = new IntersectionObserver(
+  obsCallback, 
+  { root: null, threshold:  0, rootMargin: `-${navHeight}px`}); // each time the viewport changes to 10% the callback gets invoked
+observer.observe(header);
 
-// TESTING EVENT PROPAGATION
-// const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+// revealing the sections:
 
-// const randomColor = () => `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
-// const navLinks = document.querySelector(".nav-links").getElementsByTagName("button");
-// [...navLinks].forEach((btn, i) => {
-//   btn.addEventListener("click", (e) => {
-//     console.log(e.target);
-//     console.log('this is from a button');
-//     e.target.style.backgroundColor = randomColor();
-//   });
-// });
+const allSections = document.querySelectorAll(".section");
 
-// document.querySelector(".nav-links").addEventListener("click", (e) => {
-//   e.target.style.backgroundColor = randomColor();
-//   console.log('this is from the nav buttons div');
-//   console.log(e.target);
-// })
+const revealSection = function(entries, observer) {
+  const entry = entries[0];
 
-// document.querySelector(".nav").addEventListener("click", (e) => {
-//   e.target.style.backgroundColor = randomColor();
-//   console.log('this is from the navigation div');
-//   console.log(e.target);
-// }, true);
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove("section-hidden");
+
+  observer.unobserve(entry.target);
+}
+
+const sectionObserver = new IntersectionObserver(revealSection, { root: null, threshold: 0.15, });
+
+allSections.forEach((section) => {
+  sectionObserver.observe(section);
+  section.classList.add("section-hidden");
+});
