@@ -27,3 +27,6 @@
 4. activate the observer:
 
     observer.observe(targetElement);
+
+Article:
+https://habr.com/ru/articles/494670/
