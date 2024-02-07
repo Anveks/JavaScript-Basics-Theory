@@ -129,7 +129,7 @@ const initialCoord = header.getBoundingClientRect();
 // a better approach using the Intersection Observer API:
 const obsCallback = function (entries, observer) {
   const entry = entries[0];
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
@@ -164,5 +164,66 @@ const sectionObserver = new IntersectionObserver(revealSection, { root: null, th
 
 allSections.forEach((section) => {
   sectionObserver.observe(section);
-  section.classList.add("section-hidden");
+  // section.classList.add("section-hidden");
+});
+
+// images lazy loading
+// 1. when target is 10% visible by the observer: replace the original src to data-src + remove the blur filter 
+
+const allFeatureImages = document.querySelectorAll(".feature-img")
+
+const uploadImg = function (entries, observer) {
+  const entry = entries[0];
+
+  if (!entry.isIntersecting) return;
+
+  // this does not work well with slow internet (the blur effect disappears first and the image is loaded only few seconds afterwards):
+  const qualityImg = entry.target.dataset.src;
+  entry.target.setAttribute('src', qualityImg);
+  // entry.target.classList.remove("lazy");
+
+  // solution is to use the "load" event listener:
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove("lazy");
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imageObserver = new IntersectionObserver(uploadImg, { root: null, threshold: 0 });
+
+allFeatureImages.forEach((img) => imageObserver.observe(img));
+
+// slider comp
+const sliders = document.querySelectorAll(".slide");
+
+sliders.forEach((slide, i) => {
+  slide.style.transform = `translateX(${i * 100}%)`;
+});
+
+const sliderBtnLeft = document.querySelector(".slider-btn-1");
+const sliderBtnRight = document.querySelector(".slider-btn-2");
+
+let slideNum = 0;
+
+function changeSlide(increase = true) {
+
+  if (!increase & slideNum === 0) slideNum = sliders.length;
+
+  if (slideNum >= sliders.length - 1) slideNum = 0;
+  else increase ? slideNum++ : slideNum--;
+
+  console.log(slideNum);
+
+  sliders.forEach((slide, i) => {
+    slide.style.transform = `translateX(${100 * (i - slideNum)}%)`;
+  });
+};
+
+sliderBtnRight.addEventListener("click", function(e) {
+  changeSlide();
+});
+
+sliderBtnLeft.addEventListener("click", function(e) {
+  changeSlide(false);
 });
