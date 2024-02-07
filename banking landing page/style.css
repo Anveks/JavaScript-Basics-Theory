@@ -361,7 +361,7 @@ section {
 }
 
 .slider {
-  background-color: #ffbe0b;
+  /* background-color: #ffbe0b; */
   max-width: 100rem;
   height: 55vh;
   margin: 0 auto;
@@ -492,6 +492,32 @@ section {
   backdrop-filter: blur(4px);
   z-index: 100;
   transition: all 0.5s;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.dot {
+  background-color: lightgray;
+  width: 2vw;
+  height: 2vh;
+  border-radius: 50%;
+  border: none;
+  opacity: .5;
+}
+
+.dot-active {
+  opacity: 1;
+}
+
+.dot:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: .3s;
 }
 
 

@@ -196,34 +196,69 @@ allFeatureImages.forEach((img) => imageObserver.observe(img));
 
 // slider comp
 const sliders = document.querySelectorAll(".slide");
-
-sliders.forEach((slide, i) => {
-  slide.style.transform = `translateX(${i * 100}%)`;
-});
-
 const sliderBtnLeft = document.querySelector(".slider-btn-1");
 const sliderBtnRight = document.querySelector(".slider-btn-2");
 
-let slideNum = 0;
+let activeSlideNum = 0;
 
-function changeSlide(increase = true) {
-
-  if (!increase & slideNum === 0) slideNum = sliders.length;
-
-  if (slideNum >= sliders.length - 1) slideNum = 0;
-  else increase ? slideNum++ : slideNum--;
-
-  console.log(slideNum);
-
+function changeSlide(slideNum) {
   sliders.forEach((slide, i) => {
     slide.style.transform = `translateX(${100 * (i - slideNum)}%)`;
   });
 };
+changeSlide(0);
 
-sliderBtnRight.addEventListener("click", function(e) {
-  changeSlide();
+function nextSlide() {
+  if (activeSlideNum >= sliders.length - 1) activeSlideNum = 0; 
+  else  activeSlideNum++;
+
+  changeSlide(activeSlideNum);
+  activateDot(activeSlideNum);
+};
+
+function prevSlide() {
+  if (activeSlideNum === 0) activeSlideNum = sliders.length - 1;
+  else activeSlideNum--;
+  changeSlide(activeSlideNum);
+  activateDot(activeSlideNum);
+};
+
+
+sliderBtnRight.addEventListener("click", nextSlide);
+sliderBtnLeft.addEventListener("click", prevSlide);
+
+document.addEventListener('keydown', function(e) {
+ if (e.key === 'ArrowRight') nextSlide();
+ else if (e.key === 'ArrowLeft') prevSlide();
 });
 
-sliderBtnLeft.addEventListener("click", function(e) {
-  changeSlide(false);
+// creating the dots
+const dotsCont = document.querySelector(".dots");
+function createDots() {
+  sliders.forEach((s, i) => {
+    dotsCont.insertAdjacentHTML('beforeend', `<button class="dot" data-slide="${i}"></button>`);
+  });
+}
+createDots();
+
+const dots = document.querySelectorAll(".dot");
+dotsCont.addEventListener("click", function(e) {
+  if (e.target.classList.contains("dot")) {
+    dots.forEach((d, i) => d.classList.remove("dot-active"));
+    e.target.classList.add("dot-active");
+
+    const slide = e.target.dataset.slide;
+    changeSlide(slide)
+  }
+});
+
+function activateDot(index) {
+  dots.forEach((d) => d.classList.remove("dot-active"));
+  
+  document.querySelector(`.dot[data-slide="${index}"]`).classList.add('dot-active');
+};
+activateDot(0);
+
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('conted parsed and loaded');
 });
