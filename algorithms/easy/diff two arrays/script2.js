@@ -232,7 +232,6 @@ function rotateMatrix(matrix) {
   return rotatedMatrix;
 }
 
-
 console.log(rotateMatrix(matrix));
 // After rotation, matrix should be:
 // [
@@ -240,3 +239,32 @@ console.log(rotateMatrix(matrix));
 //   [8, 5, 2],
 //   [9, 6, 3]
 // ]
+
+// valid parenthesis 2
+console.log('---------------------------');
+function isValid(str) {
+  const stack = [];
+  const brackets = {
+    ')': '(',
+    ']': '[',
+    '}': '{',
+  };
+
+  for (const br of str) {
+    if (br === '(' || br === '[' || br === '[') {
+      stack.push(br);
+    } else {
+      const prevBr = stack.pop();
+      if (prevBr !== brackets[br]) {
+        return false;
+      }
+    }
+  }
+
+  return stack.length === 0;
+};
+
+console.log(isValid("()"));      // Output: true
+
+
+
