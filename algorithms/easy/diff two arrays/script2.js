@@ -266,5 +266,75 @@ function isValid(str) {
 
 console.log(isValid("()"));      // Output: true
 
+// next greater element
+// given an array of integers find the next greater element for each element in the array, if no - add -1; should return a new array 
+console.log('---------------------------');
+
+function nextGreaterElement(arr) {
+  const newArr = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    let found = false;
+
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[i] < arr[j] && i < j) {
+        newArr.push(arr[j]);
+        found = true;
+        break;
+      } 
+    }
+
+    if (!found) newArr.push(-1);
+
+  }
+
+  console.log(newArr);
+};
+
+console.log(nextGreaterElement([4, 5, 2, 10, 8])); // Output: [5, 10, 10, -1, -1]
+
+// the same solution but using stack:
+function nextGreaterElementStack(arr) {
+  const stack = [];
+  const result = new Array(arr.length).fill(-1); // Initialize result array with -1
+
+  for (let i = 0; i < arr.length; i++) {
+    while (stack.length > 0 && arr[i] > arr[stack[stack.length - 1]]) {
+      const index = stack.pop();
+      result[index] = arr[i];
+    }
+    stack.push(i);
+  }
+
+  return result;
+}
+
+console.log(nextGreaterElementStack([4, 5, 2, 10, 8])); // Output: [5, 10, 10, -1, -1]
+
+// Evaluate Reverse Polish Notation (RPN):
+console.log('---------------------------');
+
+function reversePolishNotation(tokens) {
+  const stack = [];
+
+for (const token of tokens) {
+  if (!isNaN(Number(token))) {
+    stack.push(+token);
+  } else {
+    const n1 = stack.shift(); // getting the first elems and removing them from the arr
+    const n2 = stack.shift();
+    
+    if (token === '+') stack.push(n1 + n2);
+    else if (token === '-') stack.push(n1 - n2);
+    else if (token === '*') stack.push(n1 * n2);
+    else if (token === '/') stack.push(Math.ceil(n1 / n2));
+  }
+}
+
+  return stack.pop();
+}
+
+console.log(reversePolishNotation(["4", "13", "5", "/", "+"])); // Output: 3 (2 + 1);
+
 
 
