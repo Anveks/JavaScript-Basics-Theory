@@ -336,5 +336,66 @@ for (const token of tokens) {
 
 console.log(reversePolishNotation(["4", "13", "5", "/", "+"])); // Output: 3 (2 + 1);
 
+// medium: LONGEST PALINDROME - if you read this then i hate this algorithm with all my heart and soul 
+console.log('---------------------------');
 
+function longestPalindromeMyAss(s) {
+  if (s.length === 0) return -1; // Return -1 if input string is empty
+
+  const isPalindrome = str => str.split("").reverse().join("") === str;
+
+  const substrArr = [];
+  for (let i = 1; i <= s.length; i++) {
+      substrArr.push(s.substring(0, i)); // Substring from the beginning
+      substrArr.push(s.substring(s.length - i)); // Substring from the end
+  }
+
+  const palindromeArr = substrArr.filter((s) => s.length > 1 && isPalindrome(s));
+
+  if (palindromeArr.length > 0) {
+      const lengths = palindromeArr.map((p) => p.length);
+      const maxLength = Math.max(...lengths);
+      const longestPalindromes = palindromeArr.filter((p) => p.length === maxLength);
+      return longestPalindromes; // Return the longest palindrome(s)
+  }
+
+  return substrArr[0]; // Return the first character if no palindrome is found
+}
+
+
+console.log(longestPalindromeMyAss('banana'));
+
+// longest substring without repeating characters
+console.log('---------------------------');
+
+function longestSubstringWithoutRepeat(str) {
+
+  // 1️⃣ hash approach:
+  // let hash = {};
+  // let substr = "";
+
+  // for (const letter of str) {
+  //   if (!hash.hasOwnProperty(letter)) {
+  //     hash[letter] = 1;
+  //     substr += letter; // strings are immutable so you cant use the ""concat" here
+  //   } else {
+  //     hash = {};
+  //     substr = "";
+  //   }
+  // }
+
+  // return substr;
+
+  //  2️⃣ set approach:
+  let startIndex = 0;
+  for (let i = 1; i < str.length; i++) {
+    const substr = str.substr(startIndex, str.length);
+    const uniqueStr = new Set(substr.split(""));
+
+    if (substr.length === uniqueStr.size) return substr;
+    else ++startIndex;
+  }
+
+}
+console.log(longestSubstringWithoutRepeat("pwwkew"));
 
