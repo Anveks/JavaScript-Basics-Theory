@@ -399,3 +399,65 @@ function longestSubstringWithoutRepeat(str) {
 }
 console.log(longestSubstringWithoutRepeat("pwwkew"));
 
+// valid sudoku
+console.log('---------------------------');
+
+function validSudoku(sudoku) {
+
+  const checkRows = s => {
+    s.forEach((row) => {
+      row.forEach((elem) => {
+        if (elem !== "." && elem >= 10) return false;
+      })
+    })
+    return true;
+  };
+
+  const checkColumns = s => {
+    for (let col = 0; col < s.length; col++) { // Iterate over columns
+      console.log('row');
+      for (let row = 0; row < s.length; row++) { // Iterate over rows
+        if (s[row][col] !== '.' && s[row][col] >= 10) return false;
+      }
+    }
+    return true;
+  }
+  
+  const checkGrid = s => {
+    for (let row = 0; row < 9; row += 3) {
+      for (let col = 0; col < 9; col += 3) {
+          const set = new Set();
+          for (let i = row; i < row + 3; i++) {
+              for (let j = col; j < col + 3; j++) {
+                  const cell = s[i][j];
+                  if (cell !== '.' && set.has(cell)) {
+                      return false; // Duplicate value found in grid
+                  }
+                  set.add(cell);
+              }
+          }
+      }
+  }
+    return true; // All grids are valid
+  }
+
+  checkColumns(sudoku);
+  
+  if (checkRows(sudoku) && checkColumns(sudoku) && checkGrid(sudoku)) return true;
+  else return false;
+};
+
+const su = [  
+["5","3",".",".","7",".",".",".","."],
+["6",".",".","1","9","5",".",".","."],
+[".","9","8",".",".",".",".","6","."],
+["8",".",".",".","6",".",".",".","3"],
+["4",".",".","8",".","3",".",".","1"],
+["7",".",".",".","2",".",".",".","6"],
+[".","6",".",".",".",".","2","8","."],
+[".",".",".","4","1","9",".",".","5"],
+[".",".",".",".","8",".",".","7","9"]
+]
+
+console.log(validSudoku(su));
+
