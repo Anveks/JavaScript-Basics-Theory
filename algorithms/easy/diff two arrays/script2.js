@@ -461,3 +461,44 @@ const su = [
 
 console.log(validSudoku(su));
 
+console.log('___________________________');
+// group the same anagrams
+function groupAnagrams(ang) {
+  const sortedAng = {};
+
+  for (const word of ang) {
+    const sortedWord = word.split("").sort().join("");
+
+    if (!sortedAng.hasOwnProperty(sortedWord)) sortedAng[sortedWord] = [word];
+    else sortedAng[sortedWord].push(word);
+  };
+
+  return Object.values(sortedAng);
+}
+
+const anagrams = ["eat", "tea", "tan", "ate", "nat", "bat"];
+console.log(groupAnagrams(anagrams));
+
+// array prototype last: add a new method to the prototype of arrays
+Array.prototype.last = function() {
+  if (this.length === 0) return -1;
+  else return this[this.length - 1];
+};
+const nums = [];
+console.log(nums.last()); // -1
+
+// create counter:
+var createCounter = function(n) { // thats a closuer and high order func at the same time
+
+    return function() { // inner function remembers the "state" even after the outer function finishes execution
+      n++; 
+      return n;
+  };
+};
+const counter = createCounter(10);
+console.log(counter(), counter(), counter()); // 11, 12, 13 
+
+
+
+
+
