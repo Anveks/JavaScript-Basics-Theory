@@ -1,6 +1,9 @@
 
 // Modal window
 
+const a = 1;
+let number = 12;
+
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
