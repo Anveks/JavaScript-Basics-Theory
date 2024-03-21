@@ -100,6 +100,24 @@ const findMax = (users) => {
   return Math.max(...salaries);
 };
 
+const findMaxwReduce = users => {
+  const salaries = users.map((el) => el.salary);
+  let maxSalary = 0;                                 
+  salaries.reduce((acc, curr) => {
+    if (curr > maxSalary) {
+      maxSalary = curr;
+      acc = curr;
+    }
+  });
+  return maxSalary;
+};
+
+// // task 1 Find max salary of users:
+// const max = users.reduce((prev, next) =>
+//   prev.salary > next.salary ? prev : next
+// );
+// console.log("max: ", max.salary);
+
 const findMin = (users) => {
   const salaries = users.map((el) => el.salary);
   return Math.min(...salaries);
@@ -114,7 +132,7 @@ const backends = (users) => {
   return users.filter((el) => el.role === 'backend developer');
 };
 
-console.log(findMax(users), findMin(users), avgSalary(users), backends(users));
+console.log(findMax(users), findMin(users), avgSalary(users), backends(users), findMaxwReduce(users));
 // task 1 Find max salary of users:
 // task 2 Find max salary of users:
 // task 3 Find min salary of users:
@@ -123,17 +141,21 @@ console.log(findMax(users), findMin(users), avgSalary(users), backends(users));
 
 // 8 find str in nested object
 
-// const data = {
-//     name: "Doron",
-//     firstData: {
-//         name: "Hagay",
-//         secondData: {
-//             name: "Moty"
-//         },
-//     }
-// };
+const data = {
+    name: "Doron",
+    firstData: {
+        name: "Hagay",
+        secondData: {
+            name: "Moty"
+        },
+    }
+};
 
-// console.log(findString("Moty"));
+function findString(str, data) {
+  return JSON.stringify(data).indexOf(str) !== -1 ? true : false;
+}
+
+console.log(findString("Moty", data));
 
 // 9 Write a function to check the correctness of brackets:
 
